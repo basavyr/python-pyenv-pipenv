@@ -1,9 +1,9 @@
 import png
 color=(255,0,0)
-p = [(255,0,0, 0,255,0, 0,0,255),
-     (128,0,0, 0,128,0, 0,0,128)]
-pp=[(222,1,1)]
-f = open('swatch.png', 'wb')
-w = png.Writer(1, 1, greyscale=False)
-w.write(f, pp)
-f.close()
+pixels=[128,2,3,120,2,3,120,2,3,
+        128,2,3,128,2,3,120,2,3]
+list_of_pixels=[]
+for _ in range(100):
+	list_of_pixels.append(pixels)
+image=png.from_array(list_of_pixels,'RGB')
+image.save('my_image.png')
