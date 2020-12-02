@@ -62,8 +62,22 @@ def generateBand(spin0,energies):
 	return data
 
 #print(data)
-data.sort(key=itemgetter(0))
+#data.sort(key=itemgetter(0))
 #print(data)
 
-for x in data:
-	print("{",x[0],",",x[1],"},")
+tsd1=data[0:21]
+tsd2=data[21:38]
+tsd3=data[38:53]
+tsd4=data[53:63]
+
+#for x in tsd1:
+#	print("{",x[0],",",x[1],"},")
+
+#for x in tsd2:
+#	print("{",x[0],",",x[1],"},")
+ 
+#for x in tsd3:
+ #	print("{",x[0],",",x[1],"},")
+ 
+for x in tsd4:
+ 	print("{",x[0],",",x[1],"},")
