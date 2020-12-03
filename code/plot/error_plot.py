@@ -16,7 +16,7 @@ y2=[x for x in range(10,100)]
 y3=rd.uniform(10,100, size=(1,10))
 
 
-y4=list(map(lambda x: rd.uniform(10,100)*x,xs))
+y4=list(map(lambda x: rd.uniform(0,1)*x,xs))
 
 plt.errorbar(xs,ys,yerr=y4)
 plt.savefig("errorplot.pdf",bbox_inches='tight')
