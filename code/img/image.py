@@ -36,7 +36,11 @@ def GenerateImage(name,chunks):
 	image.save(f'{name}.png')
 
 path="./images/"
-image_names=[path+"image-"+str(id) for id in range(2)]
+# create a dictionary with some words that will be used for image names
+file_names=[]
+#set the number of images to be created at script runtime
+image_number=15
+image_names=[path+"image-"+str(id) for id in range(image_number)]
 
 for image in image_names:
 	GenerateImage(image,5)
