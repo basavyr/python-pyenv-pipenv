@@ -10,11 +10,11 @@ def GeneratePixel():
 
 def GenerateLineOfPixels(pixel_number,chunks):
 	pixels=[GeneratePixel() for _ in range(chunks)]
-	print(f'The program generated {chunks} pixels')
-	for pixel in pixels:
-		print(f'p={pixel}')
+#	print(f'The program generated {chunks} pixels')
+#	for pixel in pixels:
+#		print(f'p={pixel}')
 	pixel_window=int(pixel_number/chunks)
-	print(f'There will be {chunks} colors that spread across the width {pixel_number}, each with a sub_width of {pixel_window}')
+#	print(f'There will be {chunks} colors that spread across the width {pixel_number}, each with a sub_width of {pixel_window}')
 	pixel_list=[]
 	for pixel in pixels:
 		for _ in range(pixel_window):
@@ -36,5 +36,8 @@ def GenerateImage(name,chunks):
 	image.save(f'{name}.png')
 
 path="./images/"
-image_name=path+"my_image"
-GenerateImage(image_name,5)
+image_names=[path+"image-"+str(id) for id in range(2)]
+
+for image in image_names:
+	GenerateImage(image,5)
+
