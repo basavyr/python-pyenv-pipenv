@@ -35,13 +35,18 @@ def GenerateImage(name,chunks):
 	image=png.from_array(bg,'RGB')
 	image.save(f'{name}.png')
 
+dictionary_path="../../resources/dict.txt"
 path="./images/"
 # create a dictionary with some words that will be used for image names
-file_names=[]
+file_names=open(dictionary_path).read().splitlines()
+#print(file_names)
 #set the number of images to be created at script runtime
 image_number=15
-image_names=[path+"image-"+str(id) for id in range(image_number)]
+image_names=[path+rd.choice(file_names)+"-"+str(id) for id in range(image_number)]
+
+
+chunk_size=7
 
 for image in image_names:
-	GenerateImage(image,5)
+	GenerateImage(image,chunk_size)
 
