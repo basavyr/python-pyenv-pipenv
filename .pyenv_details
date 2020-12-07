@@ -1,0 +1,15 @@
+The available python virtual environments on the System:
+
+Darwin Roberts-MacBook-Pro.local 20.1.0 Darwin Kernel Version 20.1.0: Sat Oct 31 00:07:11 PDT 2020; root:xnu-7195.50.7~2/RELEASE_X86_64 x86_64
+
+
+_____ the starred environment is the active one (depends on the current working directory
+
+  system
+* 3.8.6 (set by /Users/robertpoenaru/.pyenv/version)
+  3.8.6/envs/images
+  3.8.6/envs/jupyter
+  3.8.6/envs/numerical
+  images
+  jupyter
+  numerical

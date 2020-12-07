@@ -22,14 +22,20 @@ def GenerateListOfPixels(pixel_number,chunks):
 chunks=10
 list_of_pixels=GenerateListOfPixels(resolution[1],chunks)
 
-def GenerateImage(pixel_list,width,height):
+print(list_of_pixels)
+
+def GeneratePixelArray(pixel_list,width,height):
 	image=[]
 	for id in range(len(pixel_list)):
 		image.extend(pixel for pixel in pixel_list[id])
 	return image
 
-pixel_line=GenerateImage(list_of_pixels,resolution[0],resolution[1])
-bg=[pixel_line for _ in range(resolution[1])]
+
+
+pixel_line=GeneratePixelArray(list_of_pixels,resolution[0],resolution[1])
+
+print(pixel_line,len(pixel_line))
+#bg=[pixel_line for _ in range(resolution[1])]
 #print(pixel_line)
-image=png.from_array(bg,'RGB')
-image.save('my_image.png')
+#image=png.from_array(bg,'RGB')
+#image.save('my_image.png')
