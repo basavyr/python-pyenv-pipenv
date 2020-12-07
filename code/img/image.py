@@ -21,18 +21,20 @@ def GenerateLineOfPixels(pixel_number,chunks):
 			pixel_list.extend(pixel)
 	return pixel_list
 
-#the number of chunks represents how many random colors will be generated for a single pixel line (e.g. if n.o. chunks is 3, then the image will have 3 rows of random colors when full image is generated
-chunks=10
-list_of_pixels=GenerateLineOfPixels(1920,chunks)
+def GenerateImage(name,chunks):
+	height=resolution[1]
+	width=resolution[0]
+	#uses the line of pixels generated with GenerateLineOfPixels to create a list of lines
+	list_of_pixels=GenerateLineOfPixels(width,chunks)
 
-#uses the line of pixels generated with GenerateLineOfPixels to create a list of lines
-def GenerateImage(pixel_list,height):
-	image=[]
+	bg=[]
+
+	#the number of chunks represents how many random colors will be generated for a single pixel line (e.g. if n.o. chunks is 3, then the image will have 3 rows of random colors when full image is generated
 	for _ in range(height):
-		image.append(pixel_list)
-	return image
+		bg.append(list_of_pixels)
+	image=png.from_array(bg,'RGB')
+	image.save(f'{name}.png')
 
-pixel_line=GenerateImage(list_of_pixels,resolution[1])
- 
-image=png.from_array(pixel_line,'RGB')
-image.save('my_image.png')
+path="./images/"
+image_name=path+"my_image"
+GenerateImage(image_name,5)
