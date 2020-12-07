@@ -41,11 +41,11 @@ path="./images/"
 file_names=open(dictionary_path).read().splitlines()
 #print(file_names)
 #set the number of images to be created at script runtime
-image_number=15
+image_number=30
 image_names=[path+rd.choice(file_names)+"-"+str(id) for id in range(image_number)]
 
 
-chunk_size=7
+chunk_size=5
 
 for image in image_names:
 	GenerateImage(image,chunk_size)
