@@ -29,7 +29,9 @@ envalues=list(energies)
 envalues=list(map(lambda x: x+ rd.randint(1000),envalues))
 envalues_th=list(energies_th)
 
-# comment fig, axes=plt.subplots(2,2,figsize=(10,10),dpi=300)
+# source for the quality set-up
+# https://www.kite.com/python/answers/how-to-save-images-at-very-high-quality-in-python#:~:text=savefig(filename%2C%20dpi%3DNone,indicates%20a%20lower%20resolution%20image.
+# comment fig, axes=plt.subplots(2,2,figsize=(10,10),dpi=300) # -------> sets the DPI for custom quality
 # comment plt.xlabel(r'I $[\hbar]$')
 # comment plt.ylabel(r'E [a.u.]'
 
