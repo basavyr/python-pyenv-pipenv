@@ -25,14 +25,14 @@ def GenerateLineOfPixels(pixel_number,chunks):
 chunks=10
 list_of_pixels=GenerateLineOfPixels(1920,chunks)
 
-
-def GenerateImage(pixel_list,width,height):
+#uses the line of pixels generated with GenerateLineOfPixels to create a list of lines
+def GenerateImage(pixel_list,height):
 	image=[]
-	image.append(pixel_list)
+	for _ in range(height):
+		image.append(pixel_list)
 	return image
 
-
-pixel_line=GenerateImage(list_of_pixels,10,10)
+pixel_line=GenerateImage(list_of_pixels,resolution[1])
  
 image=png.from_array(pixel_line,'RGB')
 image.save('my_image.png')
