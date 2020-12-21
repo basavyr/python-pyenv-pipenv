@@ -3,28 +3,41 @@ import png
 from numpy import random as rd
 
 
-out_file='./graphs_output/'
+out_file = './graphs_output/'
+
 # Resolution
 width, height = 30, 20
-
 resolution = f'Screen res: {width}x{height} px'
 
-print(resolution)
 
-def GenerateBG(width,height):
+def SaveImage(img, path):
+    image = png.from_array(img, 'RGB')
+    image.save(f'{path}testBG.png')
+
+
+def GenerateBG(width, height, n_pics):
     # Steelblue color (testing)
-    pixel=[70,130,180]
-    bg=[]
-    line_of_pixels=[]
-    for _ in range(width):
-        line_of_pixels.extend(pixel)
+    pixel = [70, 130, 180]
+
+    # Random color pixel
+    rd_pixel = [rd.randint(0, 256), rd.randint(0, 256), rd.randint(0, 256)]
+
+    line_of_pixels = []
+    if (n_pics == 2):
+        for _ in range(int(width/2)):
+            line_of_pixels.extend(pixel)
+        for _ in range(int(width/2)):
+            line_of_pixels.extend(rd_pixel)
+
+    bg = []
     for _ in range(height):
         bg.append(line_of_pixels)
     return bg
 
-bg=GenerateBG(1920,1080)
-image=png.from_array(bg,'RGB')
-image.save(f'{out_file}testBG.png')
+
+bg = GenerateBG(1920, 1080, 2)
+SaveImage(bg, out_file)
+
 
 # def GenerateMatrix(width, height):
 #     l = np.linspace(1, 100, width)
