@@ -42,6 +42,9 @@ clean_pdf_files = True
 
 if(clean_pdf_files):
     try:
-        subprocess.check_call(['rm', '*.pdf'], capture_output=True, text=True)
-    except:
-        print('failed to delete')
+        # f=open("out.dat","w+")
+        subprocess.check_output(
+            ['touch', 'touched.dat'], stderr=subprocess.PIPE)
+    # ['ls', './dir'], capture_output=True, text=True, shell=True)
+    except subprocess.CalledProcessError as e:
+        print(e.stderr.decode())
