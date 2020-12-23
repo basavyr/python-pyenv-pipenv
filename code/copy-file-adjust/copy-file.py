@@ -8,9 +8,6 @@ import subprocess
 #     ['cp', './latex-content/my_prc.tex', './latex-content/my_prc_preprint.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 
 
-paper_draft_mode = False
-
-
 with open('./latex-content/my_prc.tex', 'rt') as draft:
     preprint = open('./latex-content/my_prc_preprint.tex', 'wt')
     lines = draft.readlines()
@@ -22,8 +19,9 @@ with open('./latex-content/my_prc.tex', 'rt') as draft:
         else:
             preprint.write(line)
         count = count+1
+    preprint.close()
 
-
+paper_draft_mode = False
 # draft mode
 if(paper_draft_mode):
     try:
@@ -41,8 +39,7 @@ if(paper_draft_mode):
         print(out.decode())
 
 
-paper_preprint_mode = False
-
+paper_preprint_mode = True
 # preprint mode
 if(paper_preprint_mode):
     try:
@@ -59,20 +56,9 @@ if(paper_preprint_mode):
     else:
         print(out.decode())
 
-# try:
-#     p = os.system('rm *.bib')
-# except p.OSError as e:
-#     print(e)
-
-# try:
-#     os.system('rm *.aux')
-# except OSError as e:
-#     print(e)
-
-# try:
-#     os.system('rm *.log')
-# except OSError as e:
-#     print(1)
+os.system('rm *.bib')
+os.system('rm *.aux')
+os.system('rm *.log')
 
 abs_clean = False
 
