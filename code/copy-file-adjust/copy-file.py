@@ -1,6 +1,7 @@
 #!/Users/robertpoenaru/.pyenv/shims/python
 import os
 import subprocess
+import glob
 
 # create a copy of the file
 
@@ -8,8 +9,8 @@ import subprocess
 #     ['cp', './latex-content/my_prc.tex', './latex-content/my_prc_preprint.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 
 
-with open('./latex-content/my_prc.tex', 'rt') as draft:
-    preprint = open('./latex-content/my_prc_preprint.tex', 'wt')
+with open('my_prc.tex', 'rt') as draft:
+    preprint = open('my_prc_preprint.tex', 'wt')
     lines = draft.readlines()
     count = 1
     for line in lines:
@@ -29,7 +30,7 @@ if(paper_draft_mode):
         # subprocess.check_output(
         #     ['rm', '*.pdf'], stderr=subprocess.PIPE)
         proc = subprocess.Popen(
-            ['pdflatex', './latex-content/my_prc.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            ['pdflatex', 'my_prc.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         out, err = proc.communicate()
     # ['ls', './dir'], capture_output=True, text=True, shell=True)
     except subprocess.CalledProcessError:
@@ -47,7 +48,7 @@ if(paper_preprint_mode):
         # subprocess.check_output(
         #     ['rm', '*.pdf'], stderr=subprocess.PIPE)
         proc = subprocess.Popen(
-            ['pdflatex', './latex-content/my_prc_preprint.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            ['pdflatex', 'my_prc_preprint.tex'], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         out, err = proc.communicate()
     # ['ls', './dir'], capture_output=True, text=True, shell=True)
     except subprocess.CalledProcessError:
@@ -56,14 +57,44 @@ if(paper_preprint_mode):
     else:
         print(out.decode())
 
-os.system('rm *.bib')
-os.system('rm *.aux')
-os.system('rm *.log')
+
+log_files = glob.glob('*.log', recursive=True)
+aux_files = glob.glob('*.aux', recursive=True)
+bib_files = glob.glob('*.bib', recursive=True)
+pdf_files = glob.glob('*.pdf', recursive=True)
+
+for f in log_files:
+    try:
+        os.unlink(f)
+    except OSError as e:
+        print(f'Cannot delete file: {e.strerror}')
+    finally:
+        print('Finished cleaning logs')
+
+for f in bib_files:
+    try:
+        os.unlink(f)
+    except OSError as e:
+        print(f'Cannot delete file: {e.strerror}')
+    finally:
+        print('Finished cleaning bibs')
+
+for f in aux_files:
+    try:
+        os.unlink(f)
+    except OSError as e:
+        print(f'Cannot delete file: {e.strerror}')
+    finally:
+        print('Finished cleaning aux')
 
 abs_clean = False
 
 if (abs_clean == True):
-    try:
-        os.system('rm *.pdf')
-    except OSError as e:
-        print(1)
+    print('Doing hard clean...')
+    for f in pdf_files:
+        try:
+            os.unlink(f)
+        except OSError as e:
+            print(f'Cannot delete file: {e.strerror}')
+        finally:
+            print('Finished cleaning pdf')
