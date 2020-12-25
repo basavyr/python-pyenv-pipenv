@@ -40,7 +40,7 @@ if(paper_draft_mode):
         print(out.decode())
 
 
-paper_preprint_mode = True
+paper_preprint_mode = False
 # preprint mode
 if(paper_preprint_mode):
     try:
@@ -60,32 +60,46 @@ if(paper_preprint_mode):
 
 log_files = glob.glob('*.log', recursive=True)
 aux_files = glob.glob('*.aux', recursive=True)
+
+# set the removal of bib files to False for preventing the deletion of references within the latex project
+removal_of_bib_files = False
 bib_files = glob.glob('*.bib', recursive=True)
 pdf_files = glob.glob('*.pdf', recursive=True)
 
-for f in log_files:
-    try:
-        os.unlink(f)
-    except OSError as e:
-        print(f'Cannot delete file: {e.strerror}')
-    finally:
-        print('Finished cleaning logs')
+if(not log_files):
+    print('no log files to delete...')
+else:
+    for f in log_files:
+        try:
+            os.unlink(f)
+        except OSError as e:
+            print(f'Cannot delete file: {e.strerror}')
+        finally:
+            print('Finished cleaning logs')
 
-for f in bib_files:
-    try:
-        os.unlink(f)
-    except OSError as e:
-        print(f'Cannot delete file: {e.strerror}')
-    finally:
-        print('Finished cleaning bibs')
+if(removal_of_bib_files is True):
+    if(not bib_files):
+        print('no bib files to delete...')
+    else:
+        for f in bib_files:
+            try:
+                os.unlink(f)
+            except OSError as e:
+                print(f'Cannot delete file: {e.strerror}')
+            finally:
+                print('Finished cleaning bibs')
 
-for f in aux_files:
-    try:
-        os.unlink(f)
-    except OSError as e:
-        print(f'Cannot delete file: {e.strerror}')
-    finally:
-        print('Finished cleaning aux')
+
+if(not aux_files):
+    print('no aux files to delete...')
+else:
+    for f in aux_files:
+        try:
+            os.unlink(f)
+        except OSError as e:
+            print(f'Cannot delete file: {e.strerror}')
+        finally:
+            print('Finished cleaning aux')
 
 abs_clean = False
 
