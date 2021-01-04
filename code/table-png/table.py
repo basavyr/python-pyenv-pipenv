@@ -42,9 +42,13 @@ def TestLists(l1, l2):
 l3 = list(map(My_Function, l1, l2))
 
 
-l0 = [False, 1, 2, 43, False]
-
-l0 = [l for l in l0 if l != False]
+# l0 = [False, 1, 2, 43, False]
 
 
-print(l0)
+# l0 = [l for l in l0 if l != False]
+
+
+l3 = list(filter(lambda a: a != False, l3))
+
+
+print(l3)
