@@ -3,6 +3,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#import scipy as sp
+#import pandas as pd
 l1 = np.arange(0, 100, 10)
 
 l2 = np.arange(0, 1000, 100)
