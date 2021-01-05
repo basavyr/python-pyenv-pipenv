@@ -1,12 +1,35 @@
+#! /Users/robertpoenaru/.pyenv/shims/python
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def heatmap2d(arr: np.ndarray):
-    plt.imshow(arr, cmap='viridis')
+    graph = f'heatmap_smooth.pdf'
+    plt.imshow(arr, cmap='PuBu')
     plt.colorbar()
-    plt.show()
+    plt.xlabel(f'x')
+    plt.ylabel(f'y')
+    plt.title('x')
+    # plt.legend(loc='best')
+    plt.savefig(graph, dpi=400, bbox_inches='tight')
 
 
-test_array = np.arange(100 * 100).reshape(100, 100)
-heatmap2d(test_array)
+N = 4
+
+test_array = np.arange(N*N)
+
+print(test_array)
+
+test_array = np.arange(N*N).reshape(N, N)
+
+print(test_array)
+
+# cout = open('heat_data.dat', 'w')
+
+# for x in test_array:
+#     cout.write(str(x)+'\n')
+
+# cout.close()
+
+# heatmap2d(test_array)

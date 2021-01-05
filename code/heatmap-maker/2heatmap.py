@@ -1,3 +1,4 @@
+#! /Users/robertpoenaru/.pyenv/shims/python
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -7,10 +8,10 @@ def Write(file, expr): return file.write(str(expr)+'\n')
 
 fil = open('output.dat', 'w')
 
-x_lim = 60
-y_lim = 60
-x_step = 1
-y_step = 1
+x_lim = 1
+y_lim = 1
+x_step = 0.05
+y_step = 0.05
 
 # generate 2 2d grids for the x & y bounds
 y, x = np.meshgrid(np.arange(-x_lim, x_lim+x_step, x_step),
@@ -33,9 +34,19 @@ for _x in x:
 
 # z = (1 - x / 2. + x ** 5 + y ** 3) * np.exp(-x ** 2 - y ** 2)
 
+
+def fun(x, y):
+    try:
+        f = np.exp(x)-x+y+np.power(x,2)-np.power(y,2)+np.exp(y)
+    except RuntimeWarning:
+        return 0
+    else:
+        return f
+
+
 # z = np.power(np.sin(x*np.pi/180.0), 2)+np.power(np.cos(y*np.pi/180.0), 2)
-z = np.tan(x*np.pi/180.0)*np.tan(y*np.pi/180.0) + \
-    np.power(np.sin(x*np.pi/180.0), 2)+np.power(np.cos(y*np.pi/180.0), 2)
+z = fun(x, y)
+
 
 Write(fil, len(z))
 # Write(fil, z)
