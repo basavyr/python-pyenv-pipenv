@@ -3,7 +3,7 @@ import png
 from numpy import random as rd
 
 
-out_file = './graphs_output/'
+out_file = '../../output/graphs_output/'
 
 # Resolution
 width, height = 30, 20
@@ -24,9 +24,9 @@ def GenerateBG(width, height, n_pics):
 
     line_of_pixels = []
     if (n_pics == 2):
-        for _ in range(int(width/2)):
+        for _ in range(int(width / 2)):
             line_of_pixels.extend(pixel)
-        for _ in range(int(width/2)):
+        for _ in range(int(width / 2)):
             line_of_pixels.extend(rd_pixel)
 
     bg = []
