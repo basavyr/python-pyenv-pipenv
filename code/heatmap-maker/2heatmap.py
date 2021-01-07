@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+#source -> Plotting a 2D heatmap with Matplotlib
+#SO POST -> https://stackoverflow.com/questions/33282368/plotting-a-2d-heatmap-with-matplotlib
+
+
 def Write(file, expr): return file.write(str(expr)+'\n')
 
 
