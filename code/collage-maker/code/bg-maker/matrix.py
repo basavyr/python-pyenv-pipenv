@@ -35,7 +35,7 @@ def GenerateBG(width, height, n_pics):
     return bg
 
 
-bg = GenerateBG(1920, 1080, 2)
+bg = GenerateBG(4, 2, 2)
 SaveImage(bg, out_file)
 
 
