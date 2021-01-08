@@ -1,16 +1,56 @@
+Reading data from image ./input_imgs/testBG.png
+Image-Line 1:
 p[ 1 , 1 ]=[ 70 130 180]
 color[ 1 ]=70
 color[ 2 ]=130
 color[ 3 ]=180
-p[ 1 , 2 ]=[214  34  16]
-color[ 1 ]=214
-color[ 2 ]=34
-color[ 3 ]=16
+p[ 1 , 2 ]=[ 93  10 154]
+color[ 1 ]=93
+color[ 2 ]=10
+color[ 3 ]=154
+Image-Line 2:
 p[ 2 , 1 ]=[ 70 130 180]
 color[ 1 ]=70
 color[ 2 ]=130
 color[ 3 ]=180
-p[ 2 , 2 ]=[214  34  16]
-color[ 1 ]=214
-color[ 2 ]=34
-color[ 3 ]=16
+p[ 2 , 2 ]=[ 93  10 154]
+color[ 1 ]=93
+color[ 2 ]=10
+color[ 3 ]=154
+Reading data from image ./input_imgs/testBG2.png
+Image-Line 1:
+p[ 1 , 1 ]=[ 70 130 180]
+color[ 1 ]=70
+color[ 2 ]=130
+color[ 3 ]=180
+p[ 1 , 2 ]=[ 61 178 218]
+color[ 1 ]=61
+color[ 2 ]=178
+color[ 3 ]=218
+Image-Line 2:
+p[ 2 , 1 ]=[ 70 130 180]
+color[ 1 ]=70
+color[ 2 ]=130
+color[ 3 ]=180
+p[ 2 , 2 ]=[ 61 178 218]
+color[ 1 ]=61
+color[ 2 ]=178
+color[ 3 ]=218
+Image-Line 3:
+p[ 3 , 1 ]=[ 70 130 180]
+color[ 1 ]=70
+color[ 2 ]=130
+color[ 3 ]=180
+p[ 3 , 2 ]=[ 61 178 218]
+color[ 1 ]=61
+color[ 2 ]=178
+color[ 3 ]=218
+Image-Line 4:
+p[ 4 , 1 ]=[ 70 130 180]
+color[ 1 ]=70
+color[ 2 ]=130
+color[ 3 ]=180
+p[ 4 , 2 ]=[ 61 178 218]
+color[ 1 ]=61
+color[ 2 ]=178
+color[ 3 ]=218

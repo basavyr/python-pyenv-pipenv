@@ -23,37 +23,58 @@ import datetime
 
 # input images (collection)
 test_image = './input_imgs/testBG.png'
+test_image2 = './input_imgs/testBG2.png'
+
+input_images = [test_image, test_image2]
 
 # output -> place to store the resulted figures
 image_output_as_pixles = '../../output/images/pixels.dat'
 
+# File to store the arrays obtained from reading each image
 pixel_data = 'pixels.dat'
 
-im = Image.open(test_image)  # These two lines
-im_arr = np.array(im)  # are all you need
-# plt.imshow(im_arr)
+
+def ReadImage(img_file):
+    im_arr = None
+    print(im_arr)
+    try:
+        im = Image.open(img_file)
+    except OSError as err:
+        print('could not import the image')
+        print(f'Error: {err}')
+    else:
+        im_arr = np.array(im)
+        print(im_arr)
+        # plt.imshow(im_arr) -> still doesn't work
+    return im_arr
 
 
-def ShowPixels(img_arr, output_data):
+def ShowPixels(img_arr, pixel_file):
     i = 1
-    with open(output_data, 'w') as pixel_file:
-        for line in im_arr:
-            j = 1
-            for pixel in line:
-                c_str = f'p[ {i} , {j} ]={pixel}'
-                print(c_str)
+    for line in img_arr:
+        pixel_file.write(f'Image-Line {i}:\n')
+        j = 1
+        for pixel in line:
+            c_str = f'p[ {i} , {j} ]={pixel}'
+            # print(c_str)
+            pixel_file.write(c_str + '\n')
+            id = 1
+            for color in pixel:
+                c_str = f'color[ {id} ]={color}'
+                # print(c_str)
                 pixel_file.write(c_str + '\n')
-                id = 1
-                for color in pixel:
-                    c_str = f'color[ {id} ]={color}'
-                    print(c_str)
-                    pixel_file.write(c_str + '\n')
-                    id = id + 1
-                j = j + 1
-            i = i + 1
+                id = id + 1
+            j = j + 1
+        i = i + 1
 
 
-ShowPixels(im_arr, pixel_data)
+with open(pixel_data, 'w') as pixel_file:
+    for img in input_images:
+        img_arr = ReadImage(img)
+        pixel_file.write(f'Reading data from image {img}')
+        pixel_file.write('\n')
+        ShowPixels(img_arr, pixel_file)
+
 
 # xx = open(image_output_as_pixles, 'w')
 # xx.write(str(im_arr))

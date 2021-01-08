@@ -37,7 +37,7 @@ def GenerateBG(width, height, n_pics):
         bg.append(line_of_pixels)
     return bg
 
-
+# set the n_pics to 2 in order to get only one extra column (with a random color) next to the initial fixed-color pixel
 bg = GenerateBG(2, 2, 2)
 SaveImage(bg, out_file)
 
