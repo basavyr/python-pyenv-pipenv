@@ -4,6 +4,7 @@ from numpy import random as rd
 
 
 out_file = '../../output/graphs_output/'
+input_for_collage_tester = '../collage/input_imgs/'
 
 # Resolution
 width, height = 30, 20
@@ -13,6 +14,8 @@ resolution = f'Screen res: {width}x{height} px'
 def SaveImage(img, path):
     image = png.from_array(img, 'RGB')
     image.save(f'{path}testBG.png')
+    image = png.from_array(img, 'RGB')
+    image.save(f'{input_for_collage_tester}testBG.png')
 
 
 def GenerateBG(width, height, n_pics):
@@ -35,7 +38,7 @@ def GenerateBG(width, height, n_pics):
     return bg
 
 
-bg = GenerateBG(4, 2, 2)
+bg = GenerateBG(2, 2, 2)
 SaveImage(bg, out_file)
 
 
