@@ -63,16 +63,17 @@ for x in range(0, no_elems + 1):
         if(x * y == no_elems):
             possible_shapes.append((x, y))
 
-with open('matrix_reshape.dat', 'w') as mat_out:
-    for shape in possible_shapes:
-        reshape = m0.reshape(shape)
-        mat_out.write(str(reshape))
-        mat_out.write('\n')
+# testing the reshape of a matrix
+# with open('matrix_reshape.dat', 'w') as mat_out:
+#     for shape in possible_shapes:
+#         reshape = m0.reshape(shape)
+#         mat_out.write(str(reshape))
+#         mat_out.write('\n')
 
 
 def RemoveCols(matrix, n_cols):
-    print(matrix)
-    print(f'Trying to remove {n_cols} columns from the matrix...')
+    # print(matrix)
+    # print(f'Trying to remove {n_cols} columns from the matrix...')
     try:
         # matrix = np.delete(matrix, slice(n_cols, len(matrix[0])), axis=1)
         matrix = np.delete(matrix, slice(
@@ -81,12 +82,12 @@ def RemoveCols(matrix, n_cols):
         print('Cannot delete the number of columns which was selected.')
         print(f'Reason: {err}')
     else:
-        print(matrix)
+        return matrix
 
 
 def RemoveRows(matrix, n_rows):
-    print(matrix)
-    print(f'Removing {n_rows} rows from the matrix...')
+    # print(matrix)
+    # print(f'Removing {n_rows} rows from the matrix...')
     try:
         matrix = np.delete(matrix, slice(
             len(matrix) - n_rows, len(matrix)), axis=0)
@@ -94,7 +95,7 @@ def RemoveRows(matrix, n_rows):
         print('Cannot delete the number of rows which was selected.')
         print(f'Reason: {err}')
     else:
-        print(matrix)
+        return matrix
 
 
 def GetN_cols(matrix):
@@ -122,6 +123,51 @@ for mat, size in zip(matrices, sizes):
 # sorted_data = full_data.sort(key=lambda x: x[1])
 sorted_data = sorted(full_data, key=itemgetter(1), reverse=True)
 
-print(sorted_data[0])
-# for data in full_data:
-#     print(data)
+# print(sorted_data[0])
+
+id = 0
+with open('matrix_file.dat', 'w') as mat_data:
+    for data in sorted_data:
+        # print(data[1])
+        current_matrix = data[0]
+        mat_data.write(str(current_matrix))
+        mat_data.write('\n')
+        matrices[id] = current_matrix
+        id = id + 1
+
+
+def AdjustMatrix(m1, m2):
+    delta1 = GetMSize(m1)[0] - GetMSize(m2)[0]
+    delta2 = GetMSize(m1)[1] - GetMSize(m2)[1]
+    m1 = RemoveRows(m1, delta1)
+    m1 = RemoveCols(m1, delta2)
+    return m1
+
+
+m1 = matrices[0]
+m2 = matrices[1]
+
+print(m1)
+
+# m1 = RemoveCols(m1, 1)
+# m1 = RemoveRows(m1, 1)
+
+m1 = AdjustMatrix(m1, m2)
+
+print(m1)
+print(m2)
+
+# AdjustMatrix(m1, m2)
+
+# print(m1)
+# print(m2)
+# print(delta1)
+# print(delta2)
+# with open('matrix_file.dat', 'w') as mat_data:
+#     id = 1
+#     for mat in matrices:
+#         mat_data.write(f'Matrix {id}')
+#         mat_data.write('\n')
+#         mat_data.write(str(mat))
+#         mat_data.write('\n')
+#         id = id + 1
