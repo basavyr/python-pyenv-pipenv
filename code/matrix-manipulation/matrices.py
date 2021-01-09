@@ -53,8 +53,6 @@ m0 = matrices[0]
 
 no_elems = len(m0) * len(m0[0])
 
-print(f'number of elements are {no_elems}')
-print(matrices[0].reshape((4, 3)))
 
 possible_shapes = []
 for x in range(0, no_elems + 1):
@@ -62,13 +60,42 @@ for x in range(0, no_elems + 1):
         if(x * y == no_elems):
             possible_shapes.append((x, y))
 
-print(possible_shapes)
+# print(possible_shapes)
 
 with open('matrix_reshape.dat', 'w') as mat_out:
     for shape in possible_shapes:
         reshape = m0.reshape(shape)
         mat_out.write(str(reshape))
         mat_out.write('\n')
+
+
+def RemoveCols(matrix, n_cols):
+    print(matrix)
+    print(f'Trying to remove {n_cols} columns from the matrix...')
+    try:
+        matrix = np.delete(matrix, slice(n_cols, len(matrix[0])), axis=1)
+    except IndexError as err:
+        print('Cannot delete the number of columns which was selected.')
+        print(f'Reason: {err}')
+    else:
+        print(matrix)
+
+
+def RemoveRows(matrix, n_rows):
+    print(matrix)
+    print(f'Removing {n_rows} rows from the matrix...')
+    try:
+        matrix = np.delete(matrix, slice(
+            len(matrix) - n_rows, len(matrix)), axis=0)
+    except IndexError as err:
+        print('Cannot delete the number of rows which was selected.')
+        print(f'Reason: {err}')
+    else:
+        print(matrix)
+
+
+# RemoveCols(m0, 2)
+RemoveRows(m0, 0)
 
 # # for mat in matrices:
 
