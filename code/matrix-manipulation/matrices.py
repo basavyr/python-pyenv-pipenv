@@ -4,6 +4,10 @@ import numpy as np
 
 from numpy import random as rd
 
+# used for sorting a list of tuples by specified tuple index
+# source: https://stackoverflow.com/questions/10695139/sort-a-list-of-tuples-by-2nd-item-integer-value
+from operator import itemgetter
+
 # set the limit for MINIMUM randomized number used within calculations
 RAND_LIM_0 = 0
 # set the limit for MAXIMUM randomized number used within calculations
@@ -38,7 +42,7 @@ def GetMSize(M):
 matrix_sizes = [(3, 4), (4, 5), (4, 4), (5, 1)]
 
 
-mat_counter = 1
+# mat_counter = 1
 # for size in matrix_sizes:
 #     n_rows = size[0]
 #     n_cols = size[1]
@@ -53,14 +57,11 @@ m0 = matrices[0]
 
 no_elems = len(m0) * len(m0[0])
 
-
 possible_shapes = []
 for x in range(0, no_elems + 1):
     for y in range(0, no_elems + 1):
         if(x * y == no_elems):
             possible_shapes.append((x, y))
-
-# print(possible_shapes)
 
 with open('matrix_reshape.dat', 'w') as mat_out:
     for shape in possible_shapes:
@@ -96,13 +97,31 @@ def RemoveRows(matrix, n_rows):
         print(matrix)
 
 
-m0 = matrices[0]
-RemoveCols(m0, 2)
-m0 = matrices[0]
-RemoveRows(m0, 1)
+def GetN_cols(matrix):
+    ret_val = len(matrix[0])
+    return ret_val
 
-# # for mat in matrices:
+# m0 = matrices[0]
+# RemoveCols(m0, 2)
+# m0 = matrices[0]
+# RemoveRows(m0, 2)
 
-# new_matrices = [mat.reshape(3, 3) for mat in matrices]
+# for m in matrices:
+#     print(m)
+#     print(GetMSize(m))
 
-# print(new_matrices)
+
+full_data = []
+
+sizes = list(map(GetN_cols, matrices))
+
+for mat, size in zip(matrices, sizes):
+    element = [mat, size]
+    full_data.append(element)
+
+# sorted_data = full_data.sort(key=lambda x: x[1])
+sorted_data = sorted(full_data, key=itemgetter(1), reverse=True)
+
+print(sorted_data[0])
+# for data in full_data:
+#     print(data)
