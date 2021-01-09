@@ -73,7 +73,9 @@ def RemoveCols(matrix, n_cols):
     print(matrix)
     print(f'Trying to remove {n_cols} columns from the matrix...')
     try:
-        matrix = np.delete(matrix, slice(n_cols, len(matrix[0])), axis=1)
+        # matrix = np.delete(matrix, slice(n_cols, len(matrix[0])), axis=1)
+        matrix = np.delete(matrix, slice(
+            len(matrix[0]) - n_cols, len(matrix[0])), axis=1)
     except IndexError as err:
         print('Cannot delete the number of columns which was selected.')
         print(f'Reason: {err}')
@@ -94,8 +96,10 @@ def RemoveRows(matrix, n_rows):
         print(matrix)
 
 
-# RemoveCols(m0, 2)
-RemoveRows(m0, 0)
+m0 = matrices[0]
+RemoveCols(m0, 2)
+m0 = matrices[0]
+RemoveRows(m0, 1)
 
 # # for mat in matrices:
 
