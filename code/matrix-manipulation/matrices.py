@@ -144,18 +144,42 @@ def AdjustMatrix(m1, m2):
     return m1
 
 
+def JoinMatrices_H(m1, m2):
+    # stop the joining process if the size of matrices (row-wise) is different from each other
+    if(GetMSize(m1)[0] != GetMSize(m2)[0]):
+        print('Cannot join the two matrices horizontally, because they have different row numbers...')
+
+    # store the joint matrix
+    m0 = np.ndarray((len(m1), len(m1[0]) + len(m2[0])), dtype=int)
+
+    for id in range(len(m1)):
+        x = np.append(m1[id], m2[id], axis=0)
+        m0[id] = x
+
+    return m0
+
+
+def JoinMatrices_V(m1, m2):
+    return 1
+
+
 m1 = matrices[0]
 m2 = matrices[1]
 
-print(m1)
-
-# m1 = RemoveCols(m1, 1)
-# m1 = RemoveRows(m1, 1)
-
 m1 = AdjustMatrix(m1, m2)
 
-print(m1)
-print(m2)
+print(JoinMatrices_H(m1, m2))
+
+
+# print(m1)
+
+# # m1 = RemoveCols(m1, 1)
+# # m1 = RemoveRows(m1, 1)
+
+# m1 = AdjustMatrix(m1, m2)
+
+# print(m1)
+# print(m2)
 
 # AdjustMatrix(m1, m2)
 
