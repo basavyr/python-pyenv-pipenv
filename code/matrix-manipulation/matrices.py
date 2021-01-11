@@ -148,6 +148,7 @@ def JoinMatrices_H(m1, m2):
     # stop the joining process if the size of matrices (row-wise) is different from each other
     if(GetMSize(m1)[0] != GetMSize(m2)[0]):
         print('Cannot join the two matrices horizontally, because they have different row numbers...')
+        return
 
     # store the joint matrix
     m0 = np.ndarray((len(m1), len(m1[0]) + len(m2[0])), dtype=int)
@@ -160,15 +161,63 @@ def JoinMatrices_H(m1, m2):
 
 
 def JoinMatrices_V(m1, m2):
-    return 1
+    # stop the joining process of the
+    if(GetMSize(m1)[1] != GetMSize(m2)[1]):
+        print('Cannot join the two matrices horizontally, because they have different column numbers...')
+        return
+
+    m0 = m1
+    for id in range(len(m2)):
+        m0 = np.append(m0, [m2[id]], axis=0)
+    return m0
 
 
 m1 = matrices[0]
 m2 = matrices[1]
 
-m1 = AdjustMatrix(m1, m2)
+# selector for the type of matrix joining process (e.g., the vertical append or horizontal append)
+HORIZONTAL_SELECT = 0
+NEWLINE = '\n'
 
-print(JoinMatrices_H(m1, m2))
+with open('matrix_reshape.dat', 'w') as shaper:
+    shaper.write('M1=')
+    shaper.write(NEWLINE)
+    shaper.write(str(m1))
+    shaper.write(NEWLINE)
+    shaper.write('M2=')
+    shaper.write(NEWLINE)
+    shaper.write(str(m2))
+    shaper.write(NEWLINE)
+    shaper.write(NEWLINE)
+
+    shaper.write('Starting to adjust matrices M1 and M2...')
+    shaper.write(NEWLINE)
+    shaper.write(NEWLINE)
+
+    m1 = AdjustMatrix(m1, m2)
+
+    shaper.write('M1_ADJUSTED=')
+    shaper.write(NEWLINE)
+    shaper.write(str(m1))
+    shaper.write(NEWLINE)
+
+    shaper.write(NEWLINE)
+    shaper.write('joining matrices M1 and M2')
+    shaper.write(NEWLINE)
+
+    if (HORIZONTAL_SELECT == 1):
+        shaper.write('Joining type: HORIZONTAL')
+        shaper.write(NEWLINE)
+        m0 = JoinMatrices_H(m1, m2)
+    else:
+        shaper.write('Joining type: VERTICAL')
+        shaper.write(NEWLINE)
+        m0 = JoinMatrices_V(m1, m2)
+
+    shaper.write('M_JOINED=')
+    shaper.write(NEWLINE)
+    shaper.write(str(m0))
+    shaper.write(NEWLINE)
 
 
 # print(m1)
