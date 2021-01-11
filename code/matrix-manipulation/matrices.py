@@ -6,6 +6,7 @@ from numpy import random as rd
 
 # used for sorting a list of tuples by specified tuple index
 # source: https://stackoverflow.com/questions/10695139/sort-a-list-of-tuples-by-2nd-item-integer-value
+# sort by two fields: https://stackoverflow.com/questions/4233476/sort-a-list-by-multiple-attributes
 from operator import itemgetter
 
 # set the limit for MINIMUM randomized number used within calculations
@@ -39,7 +40,7 @@ def GetMSize(M):
 #         f'Dimension of the generated matrix is: {GetMSize(Mat)[0]}x{GetMSize(Mat)[1]}')
 
 
-matrix_sizes = [(3, 4), (5, 5), (5, 6), (7, 4), (5, 1), (6, 5)]
+matrix_sizes = [(3, 4), (5, 5), (4, 7), (7, 4), (5, 1), (6, 5)]
 
 
 # mat_counter = 1
@@ -161,8 +162,7 @@ def JoinMatrices_V(m1, m2):
 m1 = matrices[0]
 m2 = matrices[1]
 
-# selector for the type of matrix joining process (e.g., the vertical append or horizontal append)
-HORIZONTAL_SELECT = 0
+
 NEWLINE = '\n'
 
 
@@ -171,12 +171,15 @@ def SmartAdjust(m1, m2):
     delta2 = abs(GetMSize(m1)[1] - GetMSize(m2)[1])
     min_diff = min(delta1, delta2)
     if(min_diff == delta1):
-        return f'Horizontal joining is recommended: {delta1}'
+        print(f'Horizontal joining is recommended: {delta1}')
+        return 1
     else:
-        return f'Vertical joining is recommended: {delta2}'
+        print(f'Vertical joining is recommended: {delta2}')
+        return 0
 
 
-print(SmartAdjust(m1, m2))
+# selector for the type of matrix joining process (e.g., the vertical append or horizontal append)
+HORIZONTAL_SELECT = SmartAdjust(m1, m2)
 
 # with open('matrix_reshape.dat', 'w') as shaper:
 #     shaper.write('M1=')
