@@ -39,7 +39,7 @@ def GetMSize(M):
 #         f'Dimension of the generated matrix is: {GetMSize(Mat)[0]}x{GetMSize(Mat)[1]}')
 
 
-matrix_sizes = [(3, 4), (4, 5), (4, 4), (5, 1)]
+matrix_sizes = [(3, 4), (5, 5), (5, 6), (7, 4), (5, 1), (6, 5)]
 
 
 # mat_counter = 1
@@ -62,13 +62,6 @@ for x in range(0, no_elems + 1):
     for y in range(0, no_elems + 1):
         if(x * y == no_elems):
             possible_shapes.append((x, y))
-
-# testing the reshape of a matrix
-# with open('matrix_reshape.dat', 'w') as mat_out:
-#     for shape in possible_shapes:
-#         reshape = m0.reshape(shape)
-#         mat_out.write(str(reshape))
-#         mat_out.write('\n')
 
 
 def RemoveCols(matrix, n_cols):
@@ -98,18 +91,12 @@ def RemoveRows(matrix, n_rows):
         return matrix
 
 
+# returns the number of rows, columns and total number of elements
 def GetN_cols(matrix):
-    ret_val = len(matrix[0])
+    ret_val = [len(matrix[0]), len(matrix)]
+    total_no_elems = ret_val[0] * ret_val[1]
+    ret_val = [ret_val[0], ret_val[1], total_no_elems]
     return ret_val
-
-# m0 = matrices[0]
-# RemoveCols(m0, 2)
-# m0 = matrices[0]
-# RemoveRows(m0, 2)
-
-# for m in matrices:
-#     print(m)
-#     print(GetMSize(m))
 
 
 full_data = []
@@ -117,18 +104,17 @@ full_data = []
 sizes = list(map(GetN_cols, matrices))
 
 for mat, size in zip(matrices, sizes):
-    element = [mat, size]
+    # print(mat)
+    # print(size)
+    element = [mat, size[0], size[1], size[2]]
     full_data.append(element)
 
 # sorted_data = full_data.sort(key=lambda x: x[1])
-sorted_data = sorted(full_data, key=itemgetter(1), reverse=True)
-
-# print(sorted_data[0])
+sorted_data = sorted(full_data, key=itemgetter(1, 3, 2), reverse=True)
 
 id = 0
 with open('matrix_file.dat', 'w') as mat_data:
     for data in sorted_data:
-        # print(data[1])
         current_matrix = data[0]
         mat_data.write(str(current_matrix))
         mat_data.write('\n')
@@ -179,77 +165,64 @@ m2 = matrices[1]
 HORIZONTAL_SELECT = 0
 NEWLINE = '\n'
 
-with open('matrix_reshape.dat', 'w') as shaper:
-    shaper.write('M1=')
-    shaper.write(NEWLINE)
-    shaper.write(str(m1))
-    shaper.write(NEWLINE)
-    shaper.write('M2=')
-    shaper.write(NEWLINE)
-    shaper.write(str(m2))
-    shaper.write(NEWLINE)
-    shaper.write(NEWLINE)
 
-    shaper.write('Starting to adjust matrices M1 and M2...')
-    shaper.write(NEWLINE)
-    shaper.write(NEWLINE)
-
-    m1 = AdjustMatrix(m1, m2)
-
-    shaper.write('M1_ADJUSTED=')
-    shaper.write(NEWLINE)
-    shaper.write(str(m1))
-    shaper.write(NEWLINE)
-
-    shaper.write(NEWLINE)
-    shaper.write('Joining matrices M1 and M2...')
-    shaper.write(NEWLINE)
-    shaper.write(NEWLINE)
-
-    # if (HORIZONTAL_SELECT == 1):
-    
-    shaper.write('Joining type: HORIZONTAL')
-    m0 = JoinMatrices_H(m1, m2)
-
-    shaper.write(NEWLINE)
-    shaper.write('M_JOINED=')
-    shaper.write(NEWLINE)
-    shaper.write(str(m0))
-    shaper.write(NEWLINE)
-    
-    # else:
-    shaper.write(NEWLINE)
-    shaper.write('Joining type: VERTICAL')
-    m0 = JoinMatrices_V(m1, m2)
-
-    shaper.write(NEWLINE)
-    shaper.write('M_JOINED=')
-    shaper.write(NEWLINE)
-    shaper.write(str(m0))
-    shaper.write(NEWLINE)
+def SmartAdjust(m1, m2):
+    delta1 = abs(GetMSize(m1)[0] - GetMSize(m2)[0])
+    delta2 = abs(GetMSize(m1)[1] - GetMSize(m2)[1])
+    min_diff = min(delta1, delta2)
+    if(min_diff == delta1):
+        return f'Horizontal joining is recommended: {delta1}'
+    else:
+        return f'Vertical joining is recommended: {delta2}'
 
 
-# print(m1)
+print(SmartAdjust(m1, m2))
 
-# # m1 = RemoveCols(m1, 1)
-# # m1 = RemoveRows(m1, 1)
+# with open('matrix_reshape.dat', 'w') as shaper:
+#     shaper.write('M1=')
+#     shaper.write(NEWLINE)
+#     shaper.write(str(m1))
+#     shaper.write(NEWLINE)
+#     shaper.write('M2=')
+#     shaper.write(NEWLINE)
+#     shaper.write(str(m2))
+#     shaper.write(NEWLINE)
+#     shaper.write(NEWLINE)
 
-# m1 = AdjustMatrix(m1, m2)
+#     shaper.write('Starting to adjust matrices M1 and M2...')
+#     shaper.write(NEWLINE)
+#     shaper.write(NEWLINE)
 
-# print(m1)
-# print(m2)
+#     m1 = AdjustMatrix(m1, m2)
 
-# AdjustMatrix(m1, m2)
+#     shaper.write('M1_ADJUSTED=')
+#     shaper.write(NEWLINE)
+#     shaper.write(str(m1))
+#     shaper.write(NEWLINE)
 
-# print(m1)
-# print(m2)
-# print(delta1)
-# print(delta2)
-# with open('matrix_file.dat', 'w') as mat_data:
-#     id = 1
-#     for mat in matrices:
-#         mat_data.write(f'Matrix {id}')
-#         mat_data.write('\n')
-#         mat_data.write(str(mat))
-#         mat_data.write('\n')
-#         id = id + 1
+#     shaper.write(NEWLINE)
+#     shaper.write('Joining matrices M1 and M2...')
+#     shaper.write(NEWLINE)
+#     shaper.write(NEWLINE)
+
+#     # if (HORIZONTAL_SELECT == 1):
+
+#     shaper.write('Joining type: HORIZONTAL')
+#     m0 = JoinMatrices_H(m1, m2)
+
+#     shaper.write(NEWLINE)
+#     shaper.write('M_JOINED=')
+#     shaper.write(NEWLINE)
+#     shaper.write(str(m0))
+#     shaper.write(NEWLINE)
+
+#     # else:
+#     shaper.write(NEWLINE)
+#     shaper.write('Joining type: VERTICAL')
+#     m0 = JoinMatrices_V(m1, m2)
+
+#     shaper.write(NEWLINE)
+#     shaper.write('M_JOINED=')
+#     shaper.write(NEWLINE)
+#     shaper.write(str(m0))
+#     shaper.write(NEWLINE)
