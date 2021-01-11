@@ -202,18 +202,27 @@ with open('matrix_reshape.dat', 'w') as shaper:
     shaper.write(NEWLINE)
 
     shaper.write(NEWLINE)
-    shaper.write('joining matrices M1 and M2')
+    shaper.write('Joining matrices M1 and M2...')
+    shaper.write(NEWLINE)
     shaper.write(NEWLINE)
 
-    if (HORIZONTAL_SELECT == 1):
-        shaper.write('Joining type: HORIZONTAL')
-        shaper.write(NEWLINE)
-        m0 = JoinMatrices_H(m1, m2)
-    else:
-        shaper.write('Joining type: VERTICAL')
-        shaper.write(NEWLINE)
-        m0 = JoinMatrices_V(m1, m2)
+    # if (HORIZONTAL_SELECT == 1):
+    
+    shaper.write('Joining type: HORIZONTAL')
+    m0 = JoinMatrices_H(m1, m2)
 
+    shaper.write(NEWLINE)
+    shaper.write('M_JOINED=')
+    shaper.write(NEWLINE)
+    shaper.write(str(m0))
+    shaper.write(NEWLINE)
+    
+    # else:
+    shaper.write(NEWLINE)
+    shaper.write('Joining type: VERTICAL')
+    m0 = JoinMatrices_V(m1, m2)
+
+    shaper.write(NEWLINE)
     shaper.write('M_JOINED=')
     shaper.write(NEWLINE)
     shaper.write(str(m0))
