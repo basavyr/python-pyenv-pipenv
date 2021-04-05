@@ -40,6 +40,11 @@ def Create_Reference_File(input_file, ref_file):
         if(read_count != len(latex_file)):
             OK[0] = 0
 
+    # remove duplicate citations
+    # print(REFERENCES)
+    REFERENCES = list(dict.fromkeys(REFERENCES))
+    # print(REFERENCES)
+
     # save each reference from the list into an external file
     with open(ref_file, 'w+') as writer:
         write_count = 0
