@@ -22,7 +22,15 @@ def Create_Reference_File(input_file, ref_file):
         for latex_line in latex_file:
             line = latex_line.strip()
             line_cites = Get_Line_Citations(line)
-            print(line_cites)
+            # print(line_cites)
+            for cite in line_cites:
+                REFERENCES.append(cite)
+    with open(ref_file, 'w+') as writer:
+        for ref in REFERENCES:
+            writer.writelines(ref)
+            writer.writelines('\n')
+
+    return REFERENCES
 
 
 TEST_INPUT_FILE = 'test.tex'
