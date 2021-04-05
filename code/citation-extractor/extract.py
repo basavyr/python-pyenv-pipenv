@@ -2,22 +2,6 @@
 
 import re
 
-TEST_INPUT_FILE = 'test.tex'
-
-with open(TEST_INPUT_FILE, 'r+') as reader:
-    lines = reader.readlines()
-    CITATIONS = []
-    count = 0
-    test_line = lines[0].strip()
-    m = re.finditer(r'cite{', test_line)
-    for mx in m:
-        # print(test_line)
-        f_start = mx.span()[1]
-        # print(f'{f_start}')
-        f_stop = test_line.find('}', f_start)
-        my_string = test_line[f_start:f_stop]
-        # print(my_string)
-
 
 def Get_Line_Citations(LINE):
     LINE_CITATIONS = re.finditer(r'cite{', LINE)
@@ -28,7 +12,21 @@ def Get_Line_Citations(LINE):
         line_citation = LINE[cite_start:cite_stop].split(',')
         for cite in line_citation:
             CITATIONS.append(cite)
-    print(CITATIONS)
+    return CITATIONS
 
 
-Get_Line_Citations(test_line)
+def Create_Reference_File(input_file, ref_file):
+    REFERENCES = []
+    with open(input_file, 'r+') as reader:
+        latex_file = reader.readlines()
+        for latex_line in latex_file:
+            line = latex_line.strip()
+            line_cites = Get_Line_Citations(line)
+            print(line_cites)
+
+
+TEST_INPUT_FILE = 'test.tex'
+
+REFERENCES_FILE = 'references.dat'
+
+Create_Reference_File(TEST_INPUT_FILE, REFERENCES_FILE)
