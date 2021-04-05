@@ -54,7 +54,7 @@ def Create_Reference_File(input_file, ref_file):
     return REFERENCES
 
 
-TEST_INPUT_FILE = 'test.tex'
+TEST_INPUT_FILE = 'latex-file.tex'
 
 REFERENCES_FILE = 'references.dat'
 
