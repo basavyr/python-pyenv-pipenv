@@ -20,8 +20,8 @@ def Stack_Report(stack, stats_details, file_stack):
 
     avg_stack_value = stack.mean()
     time_stamp = str(datetime.utcnow())[0:22]
-    head = f'Analysis report for the {stack_type}\nGenerated at -> {time_stamp}\n'
-    body = f'{stack_issue} -> The average value of the stack is {avg_stack_value}%, which is above the threshold value of {threshold}%.\nStack values for the past {cycle_time} seconds ->\n************\n{stack}\n************'
+    head = f'📄 Analysis report for the {stack_type}\nGenerated at -> ⏱ {time_stamp}\n'
+    body = f'{stack_issue} -> The average value of the stack is {avg_stack_value}%, which is above the threshold value of {threshold}%.\n📈 Stack values for the past {cycle_time} seconds ->\n************\n{stack}\n************'
     STACK_MESSAGE = head + body
 
     with open(file_stack, 'w+') as stack_writer:
@@ -32,8 +32,8 @@ if __name__ == '__main__':
     stack = np.arange(0, 100, 1)
     file_stack = 'failed_stack_report.dat'
 
-    stack_issues = {"CPU": "High CPU usage",
-                    "MEM": "High MEMORY usage"}
+    stack_issues = {"CPU": "⚠️ High CPU usage ⚠️",
+                    "MEM": "⚠️ High MEMORY usage ⚠️"}
 
     stack_type = {"CPU": "CPU_USAGE_STACK",
                   "MEM": "MEM_USAGE_STACK"}
