@@ -3,9 +3,13 @@ import subprocess
 
 import commands as cmd
 
-cmd.RunCommand("ls", ["-la"])
+required_command = "zip"
 
-print(cmd.Unpack_Command("ls", ["ls", "la"]))
+required_xargs = ["--v"]
+
+cmd.RunCommand(required_command, required_xargs)
+
+print(cmd.Unpack_Command(required_command, required_xargs))
 
 # The directory in which all the files that require compression are placed into
 content_directory = os.getcwd()
