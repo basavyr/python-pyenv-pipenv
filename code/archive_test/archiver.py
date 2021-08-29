@@ -7,18 +7,25 @@ content_directory = os.getcwd()
 
 def ListDirectories(current_path):
     meta_files = [x for x in os.listdir(current_path)]
-    if(len(meta_files)):
-        return meta_files
+
+    dirs = [x for x in meta_files if os.path.isdir(x)]
+
+    if(len(dirs)):
+        return dirs
     else:
-        return 'Dirs', -1
+        return 'Dirs -> ', -1
 
 
 def ListFiles(current_path):
     meta_files = [x for x in os.listdir(current_path)]
-    if(len(meta_files)):
-        return meta_files
+
+    files = [x for x in meta_files if os.path.isfile(x)]
+
+    if(len(files)):
+        return files
     else:
         return 'Files', -1
+
 
 print(ListDirectories(content_directory))
 print(ListFiles(content_directory))
