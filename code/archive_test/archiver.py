@@ -1,6 +1,10 @@
 import os
 import subprocess
 
+import commands as cmd
+
+cmd.RunCommand('test')
+
 # The directory in which all the files that require compression are placed into
 content_directory = os.getcwd()
 
@@ -27,5 +31,5 @@ def ListFiles(current_path):
         return 'Files', -1
 
 
-print(ListDirectories(content_directory))
-print(ListFiles(content_directory))
+# print(ListDirectories(content_directory))
+# print(ListFiles(content_directory))
