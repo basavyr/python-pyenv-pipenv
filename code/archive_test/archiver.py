@@ -3,7 +3,9 @@ import subprocess
 
 import commands as cmd
 
-cmd.RunCommand('test')
+cmd.RunCommand("ls", ["-la"])
+
+print(cmd.Unpack_Command("ls", ["ls", "la"]))
 
 # The directory in which all the files that require compression are placed into
 content_directory = os.getcwd()
