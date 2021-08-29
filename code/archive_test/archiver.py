@@ -3,16 +3,14 @@ import subprocess
 
 import commands as cmd
 
-archive_name = "py_archived.zip"
+archive_name = "py_content_archived.zip"
 folder_name = "content/"
 recurring_mode = "-r"
 
 required_command = "zip"
 required_xargs = [recurring_mode, archive_name, folder_name]
 
-# cmd.RunCommand(required_command, required_xargs)
-
-print(cmd.Unpack_Command(required_command, required_xargs))
+cmd.RunCommand(required_command, required_xargs)
 
 # The directory in which all the files that require compression are placed into
 content_directory = os.getcwd()
@@ -38,7 +36,3 @@ def ListFiles(current_path):
         return files
     else:
         return 'Files', -1
-
-
-# print(ListDirectories(content_directory))
-# print(ListFiles(content_directory))
