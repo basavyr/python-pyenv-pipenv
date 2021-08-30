@@ -20,16 +20,16 @@ folder_name = "content/"
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name, folder_name]
 
-cmd.RunCommand(required_command, required_xargs)
+# cmd.RunCommand(required_command, required_xargs)
 
 
 def DeleteArchive(archive):
-    cmd = "rm"
-    xargs = ["-rf", f'{archive}.z*']
-    # packed_cmd = cmd.Pack_Command(cmd, xargs)
-    # print(packed_cmd)
-    print(cmd)
-    print(xargs)
+    cmd_name = "rm"
+    cmd_xargs = ["-rf", f'{archive}.z*']
+    packed_cmd = cmd.Pack_Command(cmd_name, cmd_xargs)
+
+
+DeleteArchive(archive_name)
 
 
 def ListDirectories(current_path):
