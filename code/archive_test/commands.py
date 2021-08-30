@@ -19,9 +19,9 @@ def RunCommand(command_name, command_xargs):
     xargs = command_xargs
 
     packed_cmd = Pack_Command(cmd, xargs)
-    print(packed_cmd)
 
     executed_cmd = subprocess.run(packed_cmd)
 
     if(executed_cmd.returncode == 0):
+        print(packed_cmd)
         print('Command executed succseffully!')
