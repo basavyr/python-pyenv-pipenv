@@ -29,7 +29,7 @@ def DeleteArchive(archive):
     cmd_xargs = ["-rf", f'{archive}.z*']
     packed_cmd = cmd.Pack_Command(cmd_name, cmd_xargs)
     print(packed_cmd)
-    cmd.RunCommand(cmd_name,cmd_xargs)
+    cmd.RunCommand(cmd_name, cmd_xargs)
 
 
 DeleteArchive(archive_name)
