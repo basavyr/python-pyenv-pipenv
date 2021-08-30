@@ -25,8 +25,11 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
 
 
 def DeleteArchive(archive):
+    # cmd_name = "rm"
+    # cmd_xargs = ["-rf", f'{archive}.z*']
+
     cmd_name = "rm"
-    cmd_xargs = ["-rf", f'{archive}.z*']
+    cmd_xargs = [""]
     packed_cmd = cmd.Pack_Command(cmd_name, cmd_xargs)
     print(packed_cmd)
     cmd.RunCommand(cmd_name, cmd_xargs)
