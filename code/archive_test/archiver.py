@@ -14,11 +14,12 @@ ignore_mode = "-x"
 ignore_file = "\"*.DS_Store\""
 split_mode = "-s"
 split_size = "5m"
-archive_name = "content_archived.zip"
+archive_name = "content_archived"
+archive_type = ".zip"
 folder_name = "content/"
 
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
-                  recurring_mode, archive_name, folder_name]
+                  recurring_mode, archive_name + archive_type, folder_name]
 
 # cmd.RunCommand(required_command, required_xargs)
 
@@ -27,6 +28,7 @@ def DeleteArchive(archive):
     cmd_name = "rm"
     cmd_xargs = ["-rf", f'{archive}.z*']
     packed_cmd = cmd.Pack_Command(cmd_name, cmd_xargs)
+    print(packed_cmd)
 
 
 DeleteArchive(archive_name)
