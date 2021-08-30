@@ -28,6 +28,8 @@ def DeleteArchive(archive):
     xargs = ["-rf", f'{archive}.z*']
     # packed_cmd = cmd.Pack_Command(cmd, xargs)
     # print(packed_cmd)
+    print(cmd)
+    print(xargs)
 
 
 def ListDirectories(current_path):
