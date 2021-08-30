@@ -3,12 +3,17 @@ import subprocess
 
 import commands as cmd
 
-archive_name = "py_content_archived.zip"
-folder_name = "content/"
-recurring_mode = "-r"
 
+# Declare the required commands and parameters for creating the archive
 required_command = "zip"
-required_xargs = [recurring_mode, archive_name, folder_name]
+recurring_mode = "-r"
+split_mode = "-s"
+split_size = "5m"
+archive_name = "content_archived.zip"
+folder_name = "content/"
+
+required_xargs = [split_mode, split_size,
+                  recurring_mode, archive_name, folder_name]
 
 cmd.RunCommand(required_command, required_xargs)
 
