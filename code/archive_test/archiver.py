@@ -24,18 +24,17 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
 # cmd.RunCommand(required_command, required_xargs)
 
 
-def DeleteArchive(archive):
-    # cmd_name = "rm"
-    # cmd_xargs = ["-rf", f'{archive}.z*']
+def DeleteArchive(folder_name, archive):
+    # current_dir = os.getcwd()
+    # files = [x for x in os.listdir(
+    #     current_dir) if 'content' in x and os.path.isdir(x)]
+    # print(current_dir)
+    # print(files)
+    x = os.listdir(folder_name)
+    print(x)
 
-    cmd_name = "rm"
-    cmd_xargs = [""]
-    packed_cmd = cmd.Pack_Command(cmd_name, cmd_xargs)
-    print(packed_cmd)
-    cmd.RunCommand(cmd_name, cmd_xargs)
 
-
-DeleteArchive(archive_name)
+DeleteArchive(folder_name, archive_name)
 
 
 def ListDirectories(current_path):
