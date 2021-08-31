@@ -16,7 +16,7 @@ split_mode = "-s"
 split_size = "5m"
 archive_name = "content_archived"
 archive_type = ".zip"
-folder_name = "content/"
+folder_name = "content/"  # folder in which the files must be stored
 
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name + archive_type, folder_name]
@@ -25,12 +25,11 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
 
 
 def DeleteArchive(folder_name, archive):
-    # current_dir = os.getcwd()
-    # files = [x for x in os.listdir(
-    #     current_dir) if 'content' in x and os.path.isdir(x)]
-    # print(current_dir)
-    # print(files)
     x = os.listdir(folder_name)
+    print(x)
+    if('DS' in x[0]):
+        ds_store = x[0]
+        x.remove(ds_store)
     print(x)
 
 
