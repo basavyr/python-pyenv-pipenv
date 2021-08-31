@@ -24,7 +24,8 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
 # cmd.RunCommand(required_command, required_xargs)
 
 
-def DeleteArchive(folder_name, archive):
+def PrepareDirectory(folder_name):
+    """removes the macOS specific DS_Store file before creating the splitted archive"""
     x = os.listdir(folder_name)
     print(x)
     if('DS' in x[0]):
@@ -33,7 +34,12 @@ def DeleteArchive(folder_name, archive):
     print(x)
 
 
-DeleteArchive(folder_name, archive_name)
+def CleanDirectory(current_path):
+    """cleans the directory in which the files required for archiving are stored"""
+    files = [x for x in os.listdir(current_path)]
+    for x_file in files:
+        # os.remove(x_file)
+        print(f'would remove -> {x_file}')
 
 
 def ListDirectories(current_path):
@@ -56,3 +62,7 @@ def ListFiles(current_path):
         return files
     else:
         return 'Files', -1
+
+
+PrepareDirectory(folder_name)
+CleanDirectory(folder_name)
