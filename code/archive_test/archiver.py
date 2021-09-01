@@ -74,4 +74,4 @@ def ListFiles(current_path):
 
 
 PrepareDirectory(folder_name)
-# CleanDirectory(os.getcwd())
+CleanDirectory(content_directory)
