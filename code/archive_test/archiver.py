@@ -28,12 +28,13 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
 def PrepareDirectory(folder_name):
     """removes the macOS specific DS_Store file before creating the splitted archive"""
     items = os.listdir(folder_name)
-    ds_store_check = [item for item in items if 'DS_Store' in item]
+    ds_store_check = [item for item in items if '.DS_Store' in item]
+    print(items)
     if(len(ds_store_check) > 0):
         print('Found DS_Store file...')
-        if('DS' in items[0]):
-            ds_store = items[0]
-            items.remove(ds_store)
+        ds_store = items[0]
+        items.remove(ds_store)  # removes from the list of files
+        os.remove(folder_name+ds_store)
     else:
         print('Found NO DS_Store file...')
 
