@@ -47,7 +47,7 @@ def CleanDirectory(current_path):
         print('No archives found...')
     for x_file in files:
         if(os.path.isfile(x_file)):
-            print(f'would remove -> {x_file}')
+            # print(f'would remove -> {x_file}')
             os.remove(x_file)
 
 
