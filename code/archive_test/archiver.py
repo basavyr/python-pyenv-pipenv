@@ -31,9 +31,11 @@ def PrepareDirectory(folder_name):
     ds_store_check = [item for item in items if 'DS_Store' in item]
     if(len(ds_store_check) > 0):
         print('Found DS_Store file...')
-    # if('DS' in x[0]):
-    #     ds_store = x[0]
-    #     x.remove(ds_store)
+        if('DS' in items[0]):
+            ds_store = items[0]
+            items.remove(ds_store)
+    else:
+        print('Found NO DS_Store file...')
 
 
 def CleanDirectory(current_path):
