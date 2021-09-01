@@ -37,8 +37,10 @@ def PrepareDirectory(folder_name):
 
 def CleanDirectory(current_path):
     """cleans the directory in which the files required for archiving are stored"""
-    archive_name='tester'
+    archive_name = 'content_archived'
     files = [x for x in os.listdir(current_path) if f'{archive_name}' in x]
+    if(len(files) == 0):
+        print('No archives found...')
     for x_file in files:
         if(os.path.isfile(x_file)):
             print(f'would remove -> {x_file}')
