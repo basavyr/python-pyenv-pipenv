@@ -1,3 +1,4 @@
+from genericpath import isfile
 import os
 import subprocess
 
@@ -36,10 +37,11 @@ def PrepareDirectory(folder_name):
 
 def CleanDirectory(current_path):
     """cleans the directory in which the files required for archiving are stored"""
-    files = [x for x in os.listdir(current_path)]
+    files = [x for x in os.listdir(current_path) if f'{archive_name}' in x]
     for x_file in files:
-        # os.remove(x_file)
-        print(f'would remove -> {x_file}')
+        if(os.path.isfile(x_file)):
+            print(f'would remove -> {x_file}')
+            os.remove(x_file)
 
 
 def ListDirectories(current_path):
