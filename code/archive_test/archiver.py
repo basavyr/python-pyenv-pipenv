@@ -77,7 +77,7 @@ def PurgeDirectory(dir_path):
     for cdir in dirs:
         try:
             print(f'will remove -> {dir_path}{cdir}')
-            shutil.rmtree(f'{dir_path}{cdir}')
+            shutil.rmtree(f'{dir_path}{cdir}') # removing content within a directory -> https://careerkarma.com/blog/python-delete-file/
         except OSError as err:
             print(err)
             pass
