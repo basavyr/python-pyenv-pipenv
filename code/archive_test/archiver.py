@@ -3,6 +3,8 @@ import os
 from posixpath import dirname
 import subprocess
 
+
+import shutil
 import commands as cmd
 
 # The directory in which all the files that require compression are placed into
@@ -67,6 +69,13 @@ def PurgeDirectory(dir_path):
             pass
     # step 2 -> remove the dirs
     print(dirs)
+    for cdir in dirs:
+        try:
+            # os.remove(cdir)
+            shutil.rmtree(f'{dir_path}/{cdir}')
+        except OSError as err:
+            print(err)
+            pass
 
 
 def ListDirectories(current_path):
