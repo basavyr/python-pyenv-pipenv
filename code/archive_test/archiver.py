@@ -56,12 +56,14 @@ def CleanArchives(dir_path, arhive_name):
     """cleans a directory from the splitted zip archives"""
     files = [x for x in os.listdir(dir_path) if f'{archive_name}' in x]
 
+    print(files)
     if(len(files) == 0):
         print('No archives found...')
 
     for cfile in files:
-        if(os.path.isfile(cfile)):
-            os.remove(cfile)
+        # print(f'{dir_path}{cfile}')
+        if(os.path.isfile(f'{dir_path}{cfile}')):
+            os.remove(f'{dir_path}{cfile}')
 
 
 def PurgeDirectory(dir_path):
@@ -120,7 +122,6 @@ cmd.RunCommand(required_command, required_xargs, False)
 
 cmd.RunCommand(move_cmd, move_args, True)
 
-CleanArchives(current_directory,archive_name)
+CleanArchives(copied_directory, archive_name)
 
-PurgeDirectory(copied_directory)
-
+# PurgeDirectory(copied_directory)
