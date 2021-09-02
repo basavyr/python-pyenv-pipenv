@@ -1,5 +1,6 @@
 from genericpath import isfile
 import os
+from posixpath import dirname
 import subprocess
 
 import commands as cmd
@@ -18,6 +19,8 @@ split_size = "5m"
 archive_name = "content_archived"
 archive_type = ".zip"
 folder_name = "content/"  # folder in which the files must be stored
+copied_directory = "copied_content/"
+
 
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name + archive_type, folder_name]
@@ -51,6 +54,16 @@ def CleanDirectory(current_path):
             os.remove(x_file)
 
 
+def PurgeDirectory(dir_path):
+    files = [x for x in os.listdir(dir_path)]
+    print(files)
+    for file in files:
+        try:
+            os.remove(os.path.abspath(file))
+        except OSError:
+            pass
+
+
 def ListDirectories(current_path):
     meta_files = [x for x in os.listdir(current_path)]
 
@@ -73,6 +86,7 @@ def ListFiles(current_path):
         return 'Files', -1
 
 
-PrepareDirectory(folder_name)
-cmd.RunCommand(required_command, required_xargs)
-CleanDirectory(content_directory)
+# PrepareDirectory(folder_name)
+# cmd.RunCommand(required_command, required_xargs)
+# CleanDirectory(content_directory)
+PurgeDirectory(copied_directory)

@@ -20,11 +20,12 @@ def RunCommand(command_name, command_xargs):
 
     packed_cmd = Pack_Command(cmd, xargs)
 
-    print(packed_cmd)
+    print(f'Running the command -> {packed_cmd}')
 
     # executed_cmd = subprocess.run(packed_cmd, capture_output=True)
+    # Has the be executed directly
     executed_cmd = subprocess.run(packed_cmd)
 
     if(executed_cmd.stderr == b''):
         print(f'cmd -> {packed_cmd}')
-        print('Command executed succseffully!')
+        print('Command executed successfully!')
