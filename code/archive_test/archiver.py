@@ -55,7 +55,9 @@ def CleanDirectory(current_path):
 
 
 def PurgeDirectory(dir_path):
-    files = [x for x in os.listdir(dir_path)]
+    files = [x for x in os.listdir(dir_path) if os.path.isfile(x)]
+    dirs = [x for x in os.listdir(dir_path) if os.path.isdir(x)]
+    # step 1 -> remove the files
     print(files)
     for file in files:
         try:
@@ -63,6 +65,8 @@ def PurgeDirectory(dir_path):
         except OSError as err:
             print(err)
             pass
+    # step 2 -> remove the dirs
+    print(dirs)
 
 
 def ListDirectories(current_path):
