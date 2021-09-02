@@ -1,4 +1,5 @@
 import subprocess
+import operator
 
 
 def Pack_Command(cmd, xargs):
@@ -22,10 +23,13 @@ def RunCommand(command_name, command_xargs):
 
     print(f'Running the command -> {packed_cmd}')
 
-    # executed_cmd = subprocess.run(packed_cmd, capture_output=True)
-    # Has the be executed directly
-    executed_cmd = subprocess.run(packed_cmd)
+    executed_cmd = subprocess.run(packed_cmd, capture_output=True, text=True)
 
-    if(executed_cmd.stderr == b''):
-        print(f'cmd -> {packed_cmd}')
+    error_in_zip_cmd = operator.contains(executed_cmd.stdout, 'error')
+    warning_in_zip_cmd = operator.contains(executed_cmd.stdout, 'warning')
+
+    if(error_in_zip_cmd == True or warning_in_zip_cmd == True):
+        print('Zipping encountered issues')
+
+    if(executed_cmd.stderr == ''):
         print('Command executed successfully!')

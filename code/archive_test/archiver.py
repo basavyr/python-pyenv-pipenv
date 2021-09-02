@@ -110,7 +110,9 @@ def ListFiles(current_path):
 
 
 PrepareDirectory(content_directory)
-# cmd.RunCommand(required_command, required_xargs)
-CleanArchives(current_directory,archive_name)
+
+cmd.RunCommand(required_command, required_xargs)
+
+# CleanArchives(current_directory,archive_name)
 
 # PurgeDirectory(copied_directory)
