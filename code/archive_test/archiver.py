@@ -16,7 +16,7 @@ recurring_mode = "-r"
 ignore_mode = "-x"
 ignore_file = "\"*.DS_Store\""
 split_mode = "-s"
-split_size = "10m"  # change the size accordingly
+split_size = "5m"  # change the size accordingly
 archive_name = "content_archived"
 archive_type = ".zip"
 
@@ -33,9 +33,9 @@ copied_directory = "copied_content/"
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name + archive_type, content_directory]
 
-move_cmd = "mv"
+move_cmd = f'mv {archive_name}.z* {copied_directory}'
 
-move_args = [archive_name + ".z*", copied_directory]
+move_args = []
 
 
 def PrepareDirectory(folder_name):
