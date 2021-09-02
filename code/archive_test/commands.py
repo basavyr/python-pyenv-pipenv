@@ -12,9 +12,10 @@ def Pack_Command(cmd, xargs):
     return packed
 
 
-def RunCommand(command_name, command_xargs):
+def RunCommand(command_name, command_xargs, shell_state):
     """
     Executes the command via terminal.
+    The variable `shell_state` decides if the Shell mode is used or not.
     """
     cmd = command_name
     xargs = command_xargs
@@ -23,7 +24,8 @@ def RunCommand(command_name, command_xargs):
 
     print(f'Running the command -> {packed_cmd}')
 
-    executed_cmd = subprocess.run(packed_cmd, capture_output=True, text=True)
+    executed_cmd = subprocess.run(
+        packed_cmd, capture_output=True, text=True, shell=shell_state)
 
     error_in_zip_cmd = operator.contains(executed_cmd.stdout, 'error')
     warning_in_zip_cmd = operator.contains(executed_cmd.stdout, 'warning')
@@ -33,3 +35,6 @@ def RunCommand(command_name, command_xargs):
 
     if(executed_cmd.stderr == ''):
         print('Command executed successfully!')
+    else:
+        print(
+            f'Encountered issues while running the command:\n{executed_cmd.stderr}')

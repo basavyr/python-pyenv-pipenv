@@ -16,9 +16,10 @@ recurring_mode = "-r"
 ignore_mode = "-x"
 ignore_file = "\"*.DS_Store\""
 split_mode = "-s"
-split_size = "5m"
+split_size = "10m"  # change the size accordingly
 archive_name = "content_archived"
 archive_type = ".zip"
+
 
 # folder in which the files are be stored
 content_directory = "content/"
@@ -32,6 +33,10 @@ copied_directory = "copied_content/"
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name + archive_type, content_directory]
 
+move_cmd = "mv"
+
+move_args = [archive_name + ".z*", copied_directory]
+
 
 def PrepareDirectory(folder_name):
     """removes the macOS specific DS_Store file before creating the splitted archive"""
@@ -39,12 +44,13 @@ def PrepareDirectory(folder_name):
     ds_store_check = [item for item in items if '.DS_Store' in item]
     # print(items)
     if(len(ds_store_check) > 0):
-        print('Found DS_Store file...')
+        # print('Found DS_Store file...')
         ds_store = items[0]
         items.remove(ds_store)  # removes from the list of files
         os.remove(folder_name + ds_store)
     else:
-        print('Found NO DS_Store file...')
+        pass
+        # print('Found NO DS_Store file...')
 
 
 def CleanArchives(dir_path, arhive_name):
@@ -111,7 +117,10 @@ def ListFiles(current_path):
 
 PrepareDirectory(content_directory)
 
-cmd.RunCommand(required_command, required_xargs)
+cmd.RunCommand(required_command, required_xargs, False)
+
+
+cmd.RunCommand(move_cmd, move_args, True)
 
 # CleanArchives(current_directory,archive_name)
 
