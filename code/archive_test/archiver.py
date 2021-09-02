@@ -8,8 +8,7 @@ import shutil
 import commands as cmd
 
 # The directory in which all the files that require compression are placed into
-content_directory = os.getcwd()
-
+current_directory = os.getcwd()
 
 # Declare the required commands and parameters for creating the archive
 required_command = "zip"
@@ -20,14 +19,18 @@ split_mode = "-s"
 split_size = "5m"
 archive_name = "content_archived"
 archive_type = ".zip"
-folder_name = "content/"  # folder in which the files must be stored
+
+# folder in which the files are be stored
+content_directory = "content/"
+
+
+# folder in which copies of the splitted archives are stored
 copied_directory = "copied_content/"
 
 
+# add all the required flags into a list of x_arguments
 required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
-                  recurring_mode, archive_name + archive_type, folder_name]
-
-# cmd.RunCommand(required_command, required_xargs)
+                  recurring_mode, archive_name + archive_type, content_directory]
 
 
 def PrepareDirectory(folder_name):
@@ -44,16 +47,16 @@ def PrepareDirectory(folder_name):
         print('Found NO DS_Store file...')
 
 
-def CleanDirectory(current_path):
-    """cleans the directory in which the files required for archiving are stored"""
-    archive_name = 'content_archived'
-    files = [x for x in os.listdir(current_path) if f'{archive_name}' in x]
+def CleanArchives(dir_path, arhive_name):
+    """cleans a directory from the splitted zip archives"""
+    files = [x for x in os.listdir(dir_path) if f'{archive_name}' in x]
+
     if(len(files) == 0):
         print('No archives found...')
-    for x_file in files:
-        if(os.path.isfile(x_file)):
-            # print(f'would remove -> {x_file}')
-            os.remove(x_file)
+
+    for cfile in files:
+        if(os.path.isfile(cfile)):
+            os.remove(cfile)
 
 
 def PurgeDirectory(dir_path):
@@ -77,7 +80,8 @@ def PurgeDirectory(dir_path):
     for cdir in dirs:
         try:
             print(f'will remove -> {dir_path}{cdir}')
-            shutil.rmtree(f'{dir_path}{cdir}') # removing content within a directory -> https://careerkarma.com/blog/python-delete-file/
+            # removing content within a directory -> https://careerkarma.com/blog/python-delete-file/
+            shutil.rmtree(f'{dir_path}{cdir}')
         except OSError as err:
             print(err)
             pass
@@ -105,8 +109,8 @@ def ListFiles(current_path):
         return 'Files', -1
 
 
-# PrepareDirectory(folder_name)
+PrepareDirectory(content_directory)
 # cmd.RunCommand(required_command, required_xargs)
-# CleanDirectory(content_directory)
+CleanArchives(current_directory,archive_name)
 
-PurgeDirectory(copied_directory)
+# PurgeDirectory(copied_directory)
