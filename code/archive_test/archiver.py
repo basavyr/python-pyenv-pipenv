@@ -37,7 +37,7 @@ def PrepareDirectory(folder_name):
         print('Found DS_Store file...')
         ds_store = items[0]
         items.remove(ds_store)  # removes from the list of files
-        os.remove(folder_name+ds_store)
+        os.remove(folder_name + ds_store)
     else:
         print('Found NO DS_Store file...')
 
@@ -59,8 +59,9 @@ def PurgeDirectory(dir_path):
     print(files)
     for file in files:
         try:
-            os.remove(os.path.abspath(file))
-        except OSError:
+            os.remove(f'{dir_path}/{file}')
+        except OSError as err:
+            print(err)
             pass
 
 
