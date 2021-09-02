@@ -57,22 +57,27 @@ def CleanDirectory(current_path):
 
 
 def PurgeDirectory(dir_path):
-    files = [x for x in os.listdir(dir_path) if os.path.isfile(x)]
-    dirs = [x for x in os.listdir(dir_path) if os.path.isdir(x)]
+    files = [x for x in os.listdir(
+        dir_path) if os.path.isfile(f'{dir_path}/{x}')]
+    # print(files)
+    dirs = [x for x in os.listdir(
+        dir_path) if os.path.isdir(f'{dir_path}/{x}')]
+    # print(dirs)
+
     # step 1 -> remove the files
-    print(files)
-    for file in files:
+    for cfile in files:
         try:
-            os.remove(f'{dir_path}/{file}')
+            print(f'will remove -> {dir_path}{cfile}')
+            os.remove(f'{dir_path}{cfile}')
         except OSError as err:
             print(err)
             pass
+
     # step 2 -> remove the dirs
-    print(dirs)
     for cdir in dirs:
         try:
-            # os.remove(cdir)
-            shutil.rmtree(f'{dir_path}/{cdir}')
+            print(f'will remove -> {dir_path}{cdir}')
+            shutil.rmtree(f'{dir_path}{cdir}')
         except OSError as err:
             print(err)
             pass
@@ -103,4 +108,5 @@ def ListFiles(current_path):
 # PrepareDirectory(folder_name)
 # cmd.RunCommand(required_command, required_xargs)
 # CleanDirectory(content_directory)
+
 PurgeDirectory(copied_directory)
