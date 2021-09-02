@@ -27,10 +27,10 @@ def RunCommand(command_name, command_xargs, shell_state):
     executed_cmd = subprocess.run(
         packed_cmd, capture_output=True, text=True, shell=shell_state)
 
-    error_in_zip_cmd = operator.contains(executed_cmd.stdout, 'error')
-    warning_in_zip_cmd = operator.contains(executed_cmd.stdout, 'warning')
+    error_in_cmd = operator.contains(executed_cmd.stdout, 'error')
+    warning_in_cmd = operator.contains(executed_cmd.stdout, 'warning')
 
-    if(error_in_zip_cmd == True or warning_in_zip_cmd == True):
+    if(error_in_cmd == True or warning_in_cmd == True):
         print('Zipping encountered issues')
 
     if(executed_cmd.stderr == ''):

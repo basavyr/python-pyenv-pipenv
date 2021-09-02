@@ -34,8 +34,7 @@ required_xargs = [split_mode, split_size, ignore_mode, ignore_file,
                   recurring_mode, archive_name + archive_type, content_directory]
 
 move_cmd = f'mv {archive_name}.z* {copied_directory}'
-
-move_args = []
+move_args = []  # use the flags within the command itself, since the subprocess.run command can't except *
 
 
 def PrepareDirectory(folder_name):
@@ -119,9 +118,9 @@ PrepareDirectory(content_directory)
 
 cmd.RunCommand(required_command, required_xargs, False)
 
-
 cmd.RunCommand(move_cmd, move_args, True)
 
-# CleanArchives(current_directory,archive_name)
+CleanArchives(current_directory,archive_name)
 
-# PurgeDirectory(copied_directory)
+PurgeDirectory(copied_directory)
+
