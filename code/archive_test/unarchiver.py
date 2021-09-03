@@ -38,8 +38,11 @@ def CatProcess(copied_directory, archive_name, packed_gem):
     cat_xargs = []
 
     files = [x for x in os.listdir(os.getcwd()) if os.path.isfile(x)]
-    check_arcives_existence = archiver.archive_name in files
-    print(check_arcives_existence)
+    print(files)
+
+    # checks wether there are chunks present within the current working directory
+    check_chunks = archiver.archive_name + archiver.archive_type in files
+    print(f'Chunk presence -> {check_chunks}')
 
     # check if the copied directory exists or not
     dirs = [x for x in os.listdir(os.getcwd()) if os.path.isdir(x)]
@@ -54,13 +57,13 @@ def CatProcess(copied_directory, archive_name, packed_gem):
             pass
 
     # use a True shell state in order to consider the wildcard * when packing multiple chunks with the same name
-    if(check_arcives_existence):
+    if(check_chunks):
         commands.RunCommand(cat_cmd, cat_xargs, True)
 
 
 if __name__ == '__main__':
     CatProcess(archiver.copied_directory,
                archiver.archive_name, archiver.packed_gem)
-    archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
+    # archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
     # Unzip(archiver.copied_directory, archiver.packed_gem)
     # archiver.PurgeDirectory(archiver.copied_directory)
