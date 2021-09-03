@@ -1,5 +1,6 @@
-from genericpath import isfile
+from genericpath import isdir, isfile
 import os
+from posix import listdir
 from posixpath import dirname
 import subprocess
 
@@ -125,9 +126,18 @@ if __name__ == '__main__':
     # Delete the .DS_Store file within the content directory
     PrepareDirectory(content_directory)
 
-    # Step 2
+    # Step 2a
     # Run the zip command for splitting the content directory into small chunks
     cmd.RunCommand(required_command, required_xargs, False)
+
+    # step 2b
+    # Clean the copied_content directory before running the un_archiver script, so that the directory is ready for chunk packing
+    c_dirs = [x for x in os.listdir(current_directory) if os.path.isdir(x)]
+    check_dir_existence = copied_directory[:-1] in c_dirs
+    if(check_dir_existence == False):
+        os.mkdir(copied_directory)
+
+    # Refactor -> The steps (3) -> (5) are moved in a separate script, in order to keep the procedures as streamlined as possible
 
     # Step 3
     # After the splitting procedure finished, pack all the chunks into a single .zip file, within a new location
