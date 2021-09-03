@@ -16,7 +16,7 @@ recurring_mode = "-r"
 ignore_mode = "-x"
 ignore_file = "\"*.DS_Store\""
 split_mode = "-s"
-split_size = "5m"  # change the size accordingly
+split_size = "1m"  # change the size accordingly
 archive_name = "content_archived"
 archive_type = ".zip"
 
@@ -56,12 +56,10 @@ def CleanArchives(dir_path, arhive_name):
     """cleans a directory from the splitted zip archives"""
     files = [x for x in os.listdir(dir_path) if f'{archive_name}' in x]
 
-    print(files)
     if(len(files) == 0):
         print('No archives found...')
 
     for cfile in files:
-        # print(f'{dir_path}{cfile}')
         if(os.path.isfile(f'{dir_path}{cfile}')):
             os.remove(f'{dir_path}{cfile}')
 
