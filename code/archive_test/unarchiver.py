@@ -66,4 +66,4 @@ if __name__ == '__main__':
                archiver.archive_name, archiver.packed_gem)
     archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
     Unzip(archiver.copied_directory, archiver.packed_gem)
-    # archiver.PurgeDirectory(archiver.copied_directory)
+    archiver.PurgeDirectory(archiver.copied_directory)
