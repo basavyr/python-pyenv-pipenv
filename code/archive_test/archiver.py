@@ -16,7 +16,7 @@ recurring_mode = "-r"
 ignore_mode = "-x"
 ignore_file = "\"*.DS_Store\""
 split_mode = "-s"
-split_size = "1m"  # change the size accordingly
+split_size = "10m"  # change the size accordingly
 archive_name = "content_archived"
 archive_type = ".zip"
 
@@ -37,6 +37,10 @@ move_cmd = f'mv {archive_name}.z* {copied_directory}'
 move_args = []  # use the flags within the command itself, since the subprocess.run command can't except *
 
 
+cat_cmd = f'cat {archive_name}.z* > {copied_directory}arch.zip'
+cat_args = []  # use the flags within the command itself, since the subprocess.run command can't except *
+
+
 def PrepareDirectory(folder_name):
     """removes the macOS specific DS_Store file before creating the splitted archive"""
     items = os.listdir(folder_name)
@@ -55,19 +59,22 @@ def PrepareDirectory(folder_name):
 def CleanArchives(dir_path, arhive_name):
     """cleans a directory from the splitted zip archives"""
     files = [x for x in os.listdir(dir_path) if f'{archive_name}' in x]
-
     if(len(files) == 0):
         print('No archives found...')
 
     for cfile in files:
-        if(os.path.isfile(f'{dir_path}{cfile}')):
-            os.remove(f'{dir_path}{cfile}')
+        os.remove(os.path.abspath(cfile))
+        # if(os.path.isfile(f'{dir_path}{cfile}')):
+        #     os.remove(f'{dir_path}{cfile}')
 
 
 def PurgeDirectory(dir_path):
+    # removing content within a directory -> https://careerkarma.com/blog/python-delete-file/
+
     files = [x for x in os.listdir(
         dir_path) if os.path.isfile(f'{dir_path}/{x}')]
     # print(files)
+
     dirs = [x for x in os.listdir(
         dir_path) if os.path.isdir(f'{dir_path}/{x}')]
     # print(dirs)
@@ -75,7 +82,7 @@ def PurgeDirectory(dir_path):
     # step 1 -> remove the files
     for cfile in files:
         try:
-            print(f'will remove -> {dir_path}{cfile}')
+            # print(f'will remove -> {dir_path}{cfile}')
             os.remove(f'{dir_path}{cfile}')
         except OSError as err:
             print(err)
@@ -84,8 +91,7 @@ def PurgeDirectory(dir_path):
     # step 2 -> remove the dirs
     for cdir in dirs:
         try:
-            print(f'will remove -> {dir_path}{cdir}')
-            # removing content within a directory -> https://careerkarma.com/blog/python-delete-file/
+            # print(f'will remove -> {dir_path}{cdir}')
             shutil.rmtree(f'{dir_path}{cdir}')
         except OSError as err:
             print(err)
@@ -114,12 +120,22 @@ def ListFiles(current_path):
         return 'Files', -1
 
 
+# Step 1
+# Delete the .DS_Store file within the content directory
 PrepareDirectory(content_directory)
 
+# Step 2
+# Run the zip command for splitting the content directory into small chunks
 cmd.RunCommand(required_command, required_xargs, False)
 
-cmd.RunCommand(move_cmd, move_args, True)
+# Step 3
+# After the splitting procedure finished, pack all the chunks into a single .zip file, within a new location
+cmd.RunCommand(cat_cmd, cat_cmd, True)
 
-CleanArchives(copied_directory, archive_name)
+# Step 4
+# Remove any remaining small chunks
+CleanArchives(current_directory, archive_name)
 
-# PurgeDirectory(copied_directory)
+# Step 5
+# Remove the copied content after the testing procedure has finished
+PurgeDirectory(copied_directory)

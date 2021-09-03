@@ -31,10 +31,10 @@ def RunCommand(command_name, command_xargs, shell_state):
     warning_in_cmd = operator.contains(executed_cmd.stdout, 'warning')
 
     if(error_in_cmd == True or warning_in_cmd == True):
-        print('Zipping encountered issues')
+        print(f'The {command_name} command encountered issues')
 
     if(executed_cmd.stderr == ''):
-        print('Command executed successfully!')
+        print(f'The {command_name} command executed successfully!')
     else:
         print(
             f'Encountered issues while running the command:\n{executed_cmd.stderr}')
