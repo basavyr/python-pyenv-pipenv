@@ -20,7 +20,7 @@ split_mode = "-s"
 split_size = "10m"  # change the size accordingly
 archive_name = "content_archived"
 archive_type = ".zip"
-packed_gem = "unpacked1.zip"
+packed_gem = "unpacked.zip"
 
 # folder in which the files are be stored
 content_directory = "content/"

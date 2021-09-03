@@ -1,4 +1,4 @@
-from genericpath import isdir
+from genericpath import isdir, isfile
 import os
 import shutil
 import subprocess
@@ -37,6 +37,10 @@ def CatProcess(copied_directory, archive_name, packed_gem):
     cat_cmd = f'cat {archive_name}.z* > {copied_directory}{packed_gem}'
     cat_xargs = []
 
+    files = [x for x in os.listdir(os.getcwd()) if os.path.isfile(x)]
+    check_arcives_existence = archiver.archive_name in files
+    print(check_arcives_existence)
+
     # check if the copied directory exists or not
     dirs = [x for x in os.listdir(os.getcwd()) if os.path.isdir(x)]
     if (copied_directory in dirs):
@@ -50,12 +54,13 @@ def CatProcess(copied_directory, archive_name, packed_gem):
             pass
 
     # use a True shell state in order to consider the wildcard * when packing multiple chunks with the same name
-    commands.RunCommand(cat_cmd, cat_xargs, True)
+    if(check_arcives_existence):
+        commands.RunCommand(cat_cmd, cat_xargs, True)
 
 
 if __name__ == '__main__':
     CatProcess(archiver.copied_directory,
                archiver.archive_name, archiver.packed_gem)
     archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
-    Unzip(archiver.copied_directory, archiver.packed_gem)
-    archiver.PurgeDirectory(archiver.copied_directory)
+    # Unzip(archiver.copied_directory, archiver.packed_gem)
+    # archiver.PurgeDirectory(archiver.copied_directory)
