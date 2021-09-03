@@ -7,6 +7,14 @@ import commands
 import archiver
 
 
+def Unzip(copied_directory, archive_name):
+    unzip_cmd = "unzip"
+    unzip_args = [f'{copied_directory}{archive_name}']
+
+    # packed_unzip = PackCommand(unzip_cmd, unzip_args)
+    commands.RunCommand(unzip_cmd, unzip_args, True)
+
+
 def PackCommand(cmd_name, cmd_args):
 
     if(len(cmd_args) == 0):
@@ -20,13 +28,11 @@ def PackCommand(cmd_name, cmd_args):
     return packed_cmd
 
 
-def CatProcess(copied_directory, archive_name):
+def CatProcess(copied_directory, archive_name, packed_gem):
     """
     Define the cat command which packs the zipped chunks into a single file.
     The cat command takes the chunks and creates a single "gem" within a pre-configured location
     """
-
-    packed_gem = "unpacked.zip"
 
     cat_cmd = f'cat {archive_name}.z* > {copied_directory}{packed_gem}'
     cat_xargs = []
@@ -48,5 +54,8 @@ def CatProcess(copied_directory, archive_name):
 
 
 if __name__ == '__main__':
-    CatProcess(archiver.copied_directory, archiver.archive_name)
+    CatProcess(archiver.copied_directory,
+               archiver.archive_name, archiver.packed_gem)
     archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
+    Unzip(archiver.copied_directory, archiver.packed_gem)
+    archiver.PurgeDirectory(archiver.copied_directory)
