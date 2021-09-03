@@ -62,7 +62,8 @@ def CatProcess(copied_directory, archive_name, packed_gem):
 
 
 if __name__ == '__main__':
-    # CatProcess(archiver.copied_directory,archiver.archive_name, archiver.packed_gem)
-    # archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
+    CatProcess(archiver.copied_directory,
+               archiver.archive_name, archiver.packed_gem)
+    archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
     Unzip(archiver.copied_directory, archiver.packed_gem)
     # archiver.PurgeDirectory(archiver.copied_directory)

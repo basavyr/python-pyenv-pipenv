@@ -24,8 +24,12 @@ def RunCommand(command_name, command_xargs, shell_state):
 
     print(f'Running the command -> {packed_cmd}')
 
-    executed_cmd = subprocess.run(
-        packed_cmd, capture_output=True, text=True, shell=shell_state)
+    try:
+        executed_cmd = subprocess.run(
+            packed_cmd, capture_output=True, text=True, shell=shell_state, timeout=3)
+    except subprocess.TimeoutExpired:
+        print(f'{command_name} -> Process timed out')
+        return
 
     error_in_cmd = operator.contains(executed_cmd.stdout, 'error')
     warning_in_cmd = operator.contains(executed_cmd.stdout, 'warning')
