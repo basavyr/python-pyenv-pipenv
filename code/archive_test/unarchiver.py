@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 
-
+import commands
 import archiver
 
 
@@ -27,7 +27,8 @@ def CatProcess(copied_directory, archive_name):
     cat_cmd = f'cat {archive_name}.z* > {copied_directory}'
     cat_xargs = []
 
-    print(PackCommand(cat_cmd, cat_xargs))
+    # use a True shell state in order to consider the wildcard * when packing multiple chunks with the same name
+    commands.RunCommand(cat_cmd, cat_xargs, True)
 
 
 CatProcess(archiver.copied_directory, archiver.archive_name)

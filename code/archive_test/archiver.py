@@ -131,12 +131,13 @@ if __name__ == '__main__':
 
     # Step 3
     # After the splitting procedure finished, pack all the chunks into a single .zip file, within a new location
-    cmd.RunCommand(cat_cmd, cat_cmd, True)
+    # (!!!) This procedure is moved into a separate python script
+    # cmd.RunCommand(cat_cmd, cat_cmd, True)
 
     # Step 4
     # Remove any remaining small chunks
-    CleanArchives(current_directory, archive_name)
+    # CleanArchives(current_directory, archive_name)
 
     # Step 5
     # Remove the copied content after the testing procedure has finished
-    PurgeDirectory(copied_directory)
+    # PurgeDirectory(copied_directory)
