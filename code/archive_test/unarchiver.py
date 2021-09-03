@@ -8,8 +8,8 @@ import archiver
 
 
 def Unzip(copied_directory, archive_name):
-    unzip_cmd = "unzip"
-    unzip_args = [f'{copied_directory}{archive_name}']
+    unzip_cmd = f'unzip {copied_directory}{archive_name} -d {copied_directory}'
+    unzip_args = []
 
     # packed_unzip = PackCommand(unzip_cmd, unzip_args)
     commands.RunCommand(unzip_cmd, unzip_args, True)
@@ -62,8 +62,7 @@ def CatProcess(copied_directory, archive_name, packed_gem):
 
 
 if __name__ == '__main__':
-    CatProcess(archiver.copied_directory,
-               archiver.archive_name, archiver.packed_gem)
+    # CatProcess(archiver.copied_directory,archiver.archive_name, archiver.packed_gem)
     # archiver.CleanArchives(archiver.current_directory, archiver.archive_name)
-    # Unzip(archiver.copied_directory, archiver.packed_gem)
+    Unzip(archiver.copied_directory, archiver.packed_gem)
     # archiver.PurgeDirectory(archiver.copied_directory)
