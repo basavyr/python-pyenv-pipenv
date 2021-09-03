@@ -120,22 +120,23 @@ def ListFiles(current_path):
         return 'Files', -1
 
 
-# Step 1
-# Delete the .DS_Store file within the content directory
-PrepareDirectory(content_directory)
+if __name__ == '__main__':
+    # Step 1
+    # Delete the .DS_Store file within the content directory
+    PrepareDirectory(content_directory)
 
-# Step 2
-# Run the zip command for splitting the content directory into small chunks
-cmd.RunCommand(required_command, required_xargs, False)
+    # Step 2
+    # Run the zip command for splitting the content directory into small chunks
+    cmd.RunCommand(required_command, required_xargs, False)
 
-# Step 3
-# After the splitting procedure finished, pack all the chunks into a single .zip file, within a new location
-cmd.RunCommand(cat_cmd, cat_cmd, True)
+    # Step 3
+    # After the splitting procedure finished, pack all the chunks into a single .zip file, within a new location
+    cmd.RunCommand(cat_cmd, cat_cmd, True)
 
-# Step 4
-# Remove any remaining small chunks
-CleanArchives(current_directory, archive_name)
+    # Step 4
+    # Remove any remaining small chunks
+    CleanArchives(current_directory, archive_name)
 
-# Step 5
-# Remove the copied content after the testing procedure has finished
-PurgeDirectory(copied_directory)
+    # Step 5
+    # Remove the copied content after the testing procedure has finished
+    PurgeDirectory(copied_directory)
