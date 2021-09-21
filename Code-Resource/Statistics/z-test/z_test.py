@@ -11,12 +11,11 @@ import matplotlib.pyplot as plt
 
 rng = default_rng()
 
-x1 = np.array(rd.standard_normal(100))
-x2 = rng.standard_normal(100)
+# x0 = np.array(rd.normal(0, 0.2, 100))
+# x1 = np.array(rd.standard_normal(100))
+# x2 = rng.standard_normal(100)
 
-x = np.array(rd.normal(0, 0.2, 100))
-
-y = np.linspace(-1, 1, len(x))
+# y = np.linspace(-1, 1, len(x0))
 
 # plt.plot(y, x1, '-r', label='data1')
 # plt.plot(y, x2, '--k', label='data2')
@@ -24,10 +23,14 @@ y = np.linspace(-1, 1, len(x))
 # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 
 
-#x-axis ranges from -3 and 3 with .001 steps
-x = np.arange(-3, 3, 0.001)
+x = np.linspace(-5, 5, 100)
 
-#plot normal distribution with mean 0 and standard deviation 1
-plt.plot(x, norm.pdf(x, 0, 1))
+# plot normal distribution with mean mu and standard deviation sigma
+mu = 0
+sigma = 1.69
+plt.plot(x, norm.pdf(x, mu, sigma))
 plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 plt.close()
+
+for x0 in x:
+    print(x0)
