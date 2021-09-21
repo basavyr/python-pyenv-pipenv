@@ -2,6 +2,8 @@ import numpy as np
 from numpy import random as rd
 
 from scipy.stats import norm
+# for installation of scipy the BLAS package was required (via Homebrew)
+# full guide [here](https://github.com/numpy/numpy/issues/17784#issuecomment-729950525)
 
 # according to the documentation, this is the superior way of using the random package within Python [https://numpy.org/doc/stable/reference/random/index.html#random-quick-start]
 from numpy.random import default_rng
