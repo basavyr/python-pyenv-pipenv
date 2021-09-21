@@ -1,6 +1,8 @@
 import numpy as np
 from numpy import random as rd
 
+from scipy.stats import norm
+
 # according to the documentation, this is the superior way of using the random package within Python [https://numpy.org/doc/stable/reference/random/index.html#random-quick-start]
 from numpy.random import default_rng
 import matplotlib.pyplot as plt
