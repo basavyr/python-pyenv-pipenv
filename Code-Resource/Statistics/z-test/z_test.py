@@ -25,12 +25,17 @@ def draw_normal_dist(data_set, mu, sigma):
 
 
 def normal_dist(data_set, mu, sigma):
+
     inv_2pi = 1.0 / np.sqrt(2.0 * np.pi)
     exp_x = lambda x: np.exp(-0.5 * np.power(x, 2))
     inv_x = lambda x: 1.0 / x
 
     f_normal = lambda x, mu, sigma: inv_x(
         sigma) * inv_2pi * exp_x((x - mu) / sigma)
+
+    # normal_dist.f_normal = lambda x, mu, sigma: inv_x(
+    #     sigma) * inv_2pi * exp_x((x - mu) / sigma)
+    normal_dist.f_normal = lambda x: 2 * x
 
     collection = []
 
@@ -39,6 +44,13 @@ def normal_dist(data_set, mu, sigma):
         collection.append(set_tuple)
 
     return collection
+
+
+def auc_left(distribution, left_limit):
+    x_data = [x[0] for x in distribution]
+    for x in x_data:
+        print(x, normal_dist.f_normal(1))
+
     # x0 = np.array(rd.normal(0, 0.2, 100))
     # x1 = np.array(rd.standard_normal(100))
     # x2 = rng.standard_normal(100)
@@ -65,6 +77,7 @@ plt.plot(ndist_x, ndist_y, '-or', label='data')
 plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 plt.close()
 
+auc_left(n_dist, 1)
 
 # plt.plot(statistic[0], statistic[1])
 # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
