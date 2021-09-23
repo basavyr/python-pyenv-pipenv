@@ -14,8 +14,8 @@ rng = default_rng()
 
 def draw_normal_dist(data_set, mu, sigma):
     """
-    - Take a data-set containing values evenly spaced between a fixed value (the mean - mu)  
-    - Draw the normal distribution of the entire data-set  
+    - Take a data-set containing values evenly spaced between a fixed value (the mean - mu)
+    - Draw the normal distribution of the entire data-set
     - The spacing of the data set is given by the fixed value sigma - standard deviation of the sample.
     """
     x_data = np.array(data_set)
@@ -50,11 +50,12 @@ def auc_left(mu, sigma, distribution, left_limit):
     x_data = [x[0] for x in distribution]
 
     y_data = [x[1] for x in distribution]
-    dx = y_data[1] - y_data[0]
+    dx = [x_data[n] - x_data[n - 1] for n in range(1, len(x_data))]
+    print(dx)
     summer = 0
     for x in x_data:
         # print(x, normal_dist.f_normal(x, mu, sigma))
-        summer += normal_dist.f_normal(x, mu, sigma) * dx
+        summer += normal_dist.f_normal(x, mu, sigma) * dx[0]
 
     print(summer, np.sum(y_data))
 
@@ -68,7 +69,6 @@ def auc_left(mu, sigma, distribution, left_limit):
     # plt.plot(y, x2, '--k', label='data2')
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
-
 
     # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
