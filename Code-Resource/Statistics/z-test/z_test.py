@@ -38,6 +38,7 @@ def normal_dist(data_set, mu, sigma):
         set_tuple = [x, f_normal(x, mu, sigma)]
         collection.append(set_tuple)
 
+    return collection
     # x0 = np.array(rd.normal(0, 0.2, 100))
     # x1 = np.array(rd.standard_normal(100))
     # x2 = rng.standard_normal(100)
@@ -49,11 +50,21 @@ def normal_dist(data_set, mu, sigma):
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 
+
     # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
 sigma = 1.69
 test_data = np.linspace(-5, 5, 100)
 statistic = draw_normal_dist(test_data, mu, sigma)
+
+n_dist = normal_dist(test_data, mu, sigma)
+ndist_x = [x[0] for x in n_dist]
+ndist_y = [x[1] for x in n_dist]
+
+plt.plot(ndist_x, ndist_y, '-or', label='data')
+plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+plt.close()
+
 
 # plt.plot(statistic[0], statistic[1])
 # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
