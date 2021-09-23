@@ -55,8 +55,8 @@ def auc_left(mu, sigma, distribution, left_limit):
 
     y_data = [x[1] * avg_dx for x in distribution]
 
-    x_data_left = x_data[0:left_limit]
-    print(x_data_left)
+    x_data_left = [x for x in x_data if x <= -1]
+    # print(x_data_left)
     # y_data_left = y_data[:left_limit]
 
     sum_left = 0
