@@ -55,12 +55,16 @@ def auc_left(mu, sigma, distribution, left_limit):
 
     y_data = [x[1] * avg_dx for x in distribution]
 
-    summer = 0
-    for x in x_data:
-        # print(x, normal_dist.f_normal(x, mu, sigma))
-        summer += normal_dist.f_normal(x, mu, sigma) * avg_dx
+    x_data_left = x_data[0:left_limit]
+    print(x_data_left)
+    # y_data_left = y_data[:left_limit]
 
-    print(summer, np.sum(y_data))
+    sum_left = 0
+    for x in x_data_left:
+        # print(x, normal_dist.f_normal(x, mu, sigma))
+        sum_left += normal_dist.f_normal(x, mu, sigma) * avg_dx
+
+    print(sum_left, np.sum(y_data,))
 
     # x0 = np.array(rd.normal(0, 0.2, 100))
     # x1 = np.array(rd.standard_normal(100))
@@ -73,10 +77,11 @@ def auc_left(mu, sigma, distribution, left_limit):
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 
+
     # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
 sigma = 1.69
-test_data = np.linspace(-5, 5, 10000)
+test_data = np.linspace(-5, 5, 100)
 statistic = draw_normal_dist(test_data, mu, sigma)
 
 n_dist = normal_dist(test_data, mu, sigma)
@@ -87,7 +92,7 @@ plt.plot(ndist_x, ndist_y, '-or', label='data')
 plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 plt.close()
 
-auc_left(mu, sigma, n_dist, 1)
+auc_left(mu, sigma, n_dist, -1)
 
 # plt.plot(statistic[0], statistic[1])
 # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
