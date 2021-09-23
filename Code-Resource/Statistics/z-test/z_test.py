@@ -49,13 +49,16 @@ def normal_dist(data_set, mu, sigma):
 def auc_left(mu, sigma, distribution, left_limit):
     x_data = [x[0] for x in distribution]
 
-    y_data = [x[1] for x in distribution]
     dx = [x_data[n] - x_data[n - 1] for n in range(1, len(x_data))]
-    print(dx)
+
+    avg_dx = np.sum(dx) / len(dx)
+
+    y_data = [x[1] * avg_dx for x in distribution]
+
     summer = 0
     for x in x_data:
         # print(x, normal_dist.f_normal(x, mu, sigma))
-        summer += normal_dist.f_normal(x, mu, sigma) * dx[0]
+        summer += normal_dist.f_normal(x, mu, sigma) * avg_dx
 
     print(summer, np.sum(y_data))
 
