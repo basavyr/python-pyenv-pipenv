@@ -12,33 +12,52 @@ import matplotlib.pyplot as plt
 rng = default_rng()
 
 
-def normal_dist(data_set, mu, sigma):
+def draw_normal_dist(data_set, mu, sigma):
+    """
+    - Take a data-set containing values evenly spaced between a fixed value (the mean - mu)  
+    - Draw the normal distribution of the entire data-set  
+    - The spacing of the data set is given by the fixed value sigma - standard deviation of the sample.
+    """
     x_data = np.array(data_set)
     y_data = norm.pdf(x_data, norm.pdf(x_data, mu, sigma))
 
     return [x_data, y_data]
 
-# x0 = np.array(rd.normal(0, 0.2, 100))
-# x1 = np.array(rd.standard_normal(100))
-# x2 = rng.standard_normal(100)
 
-# y = np.linspace(-1, 1, len(x0))
+def normal_dist(data_set, mu, sigma):
+    inv_2pi = 1.0 / np.sqrt(2.0 * np.pi)
+    exp_x = lambda x: np.exp(-0.5 * np.power(x, 2))
+    inv_x = lambda x: 1.0 / x
 
-# plt.plot(y, x1, '-r', label='data1')
-# plt.plot(y, x2, '--k', label='data2')
-# plt.legend(loc='best')
-# plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+    f_normal = lambda x, mu, sigma: inv_x(
+        sigma) * inv_2pi * exp_x((x - mu) / sigma)
 
+    collection = []
 
-# plot normal distribution with mean mu and standard deviation sigma
+    for x in data_set:
+        set_tuple = [x, f_normal(x, mu, sigma)]
+        collection.append(set_tuple)
+
+    # x0 = np.array(rd.normal(0, 0.2, 100))
+    # x1 = np.array(rd.standard_normal(100))
+    # x2 = rng.standard_normal(100)
+
+    # y = np.linspace(-1, 1, len(x0))
+
+    # plt.plot(y, x1, '-r', label='data1')
+    # plt.plot(y, x2, '--k', label='data2')
+    # plt.legend(loc='best')
+    # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+
+    # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
 sigma = 1.69
 test_data = np.linspace(-5, 5, 100)
-statistic = normal_dist(test_data, mu, sigma)
+statistic = draw_normal_dist(test_data, mu, sigma)
 
-plt.plot(statistic[0], statistic[1])
-plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
-plt.close()
+# plt.plot(statistic[0], statistic[1])
+# plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+# plt.close()
 
-for x0 in statistic:
-    print(x0)
+# for x0 in statistic:
+#     print(x0)
