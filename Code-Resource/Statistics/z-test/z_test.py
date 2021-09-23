@@ -50,10 +50,11 @@ def auc_left(mu, sigma, distribution, left_limit):
     x_data = [x[0] for x in distribution]
 
     y_data = [x[1] for x in distribution]
+    dx = y_data[1] - y_data[0]
     summer = 0
     for x in x_data:
         # print(x, normal_dist.f_normal(x, mu, sigma))
-        summer += normal_dist.f_normal(x, mu, sigma)
+        summer += normal_dist.f_normal(x, mu, sigma) * dx
 
     print(summer, np.sum(y_data))
 
@@ -67,6 +68,7 @@ def auc_left(mu, sigma, distribution, left_limit):
     # plt.plot(y, x2, '--k', label='data2')
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+
 
     # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
