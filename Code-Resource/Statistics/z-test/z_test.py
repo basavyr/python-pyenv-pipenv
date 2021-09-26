@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import random as rd
+from numpy.lib.function_base import disp
 
 from scipy.stats import norm
 # for installation of scipy the BLAS package was required (via Homebrew)
@@ -27,26 +28,27 @@ def draw_normal_dist(data_set, mu, sigma):
 def normal_dist(data_set, mu, sigma):
 
     inv_2pi = 1.0 / np.sqrt(2.0 * np.pi)
-    exp_x = lambda x: np.exp(-0.5 * np.power(x, 2))
-    inv_x = lambda x: 1.0 / x
+    def exp_x(x): return np.exp(-0.5 * np.power(x, 2))
+    def inv_x(x): return 1.0 / x
 
-    f_normal = lambda x, mu, sigma: inv_x(
+    def f_normal(x, mu, sigma): return inv_x(
         sigma) * inv_2pi * exp_x((x - mu) / sigma)
 
     normal_dist.f_normal = lambda x, mu, sigma: inv_x(
         sigma) * inv_2pi * exp_x((x - mu) / sigma)
     # normal_dist.f_normal = lambda x: 2 * x
 
-    collection = []
+    distribution = []
 
     for x in data_set:
         set_tuple = [x, f_normal(x, mu, sigma)]
-        collection.append(set_tuple)
+        distribution.append(set_tuple)
 
-    return collection
+    return distribution
 
 
-def auc_left(mu, sigma, distribution, left_limit):
+def auc_left(mu, sigma, distribution, right_limit):
+    """calculates the area under the curve by performing the Riemann summation starting from the left-most data point and up to the right limit"""
     x_data = [x[0] for x in distribution]
 
     dx = [x_data[n] - x_data[n - 1] for n in range(1, len(x_data))]
@@ -55,7 +57,7 @@ def auc_left(mu, sigma, distribution, left_limit):
 
     y_data = [x[1] * avg_dx for x in distribution]
 
-    x_data_left = [x for x in x_data if x <= -1]
+    x_data_left = [x for x in x_data if x <= right_limit]
 
     sum_left = 0
     for x in x_data_left:
@@ -64,7 +66,11 @@ def auc_left(mu, sigma, distribution, left_limit):
     print(sum_left, np.sum(y_data,))
 
 
-def auc_right(mu, sigma, distribution, right_limit):
+def auc_right(mu, sigma, distribution, left_limit):
+    """calculates the area under the curve by performing the Riemann summation starting from the left-limit (given as function argument) and the right-most data-point of the curve
+
+    the distribution is made up elements of the form [x,f(x)]
+    """
     x_data = [x[0] for x in distribution]
 
     dx = [x_data[n] - x_data[n - 1] for n in range(1, len(x_data))]
@@ -73,7 +79,7 @@ def auc_right(mu, sigma, distribution, right_limit):
 
     y_data = [x[1] * avg_dx for x in distribution]
 
-    x_data_right = [x for x in x_data if x >= 0]
+    x_data_right = [x for x in x_data if x >= left_limit]
 
     sum_right = 0
     for x in x_data_right:
@@ -91,6 +97,7 @@ def auc_right(mu, sigma, distribution, right_limit):
     # plt.plot(y, x2, '--k', label='data2')
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
+
 
     # plot normal distribution with mean mu and standard deviation sigma
 mu = 0
