@@ -63,7 +63,9 @@ def auc_left(mu, sigma, distribution, right_limit):
     for x in x_data_left:
         sum_left += normal_dist.f_normal(x, mu, sigma) * avg_dx
 
-    print(sum_left, np.sum(y_data,))
+    # print(sum_left, np.sum(y_data))
+
+    return sum_left
 
 
 def auc_right(mu, sigma, distribution, left_limit):
@@ -85,7 +87,9 @@ def auc_right(mu, sigma, distribution, left_limit):
     for x in x_data_right:
         sum_right += normal_dist.f_normal(x, mu, sigma) * avg_dx
 
-    print(sum_right, np.sum(y_data))
+    # print(sum_right, np.sum(y_data))
+
+    return sum_right
 
     # x0 = np.array(rd.normal(0, 0.2, 100))
     # x1 = np.array(rd.standard_normal(100))
@@ -98,11 +102,21 @@ def auc_right(mu, sigma, distribution, left_limit):
     # plt.legend(loc='best')
     # plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
 
-
     # plot normal distribution with mean mu and standard deviation sigma
+
+
+def auc(mu, sigma, distribution, left_limit, right_limit):
+    """Calculates the area under the curve for the normal distribution function my performing the Riemann summation from the left liimit (given as argument) to the right limit (also given as a function argument)
+    """
+
+
+# declare the set of constant parameters to be used for simulations
 mu = 0
 sigma = 1.69
-test_data = np.linspace(-5, 5, 100)
+left_limit = -2
+right_limit = 2
+delta = 5  # how much should the normal curve "spread" from the mean
+test_data = np.linspace(-delta, delta, 100)
 statistic = draw_normal_dist(test_data, mu, sigma)
 
 n_dist = normal_dist(test_data, mu, sigma)
@@ -115,10 +129,3 @@ plt.close()
 
 auc_left(mu, sigma, n_dist, -1)
 auc_right(mu, sigma, n_dist, -1)
-
-# plt.plot(statistic[0], statistic[1])
-# plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
-# plt.close()
-
-# for x0 in statistic:
-#     print(x0)
