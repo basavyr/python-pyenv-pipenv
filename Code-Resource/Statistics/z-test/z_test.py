@@ -110,12 +110,31 @@ def auc(mu, sigma, distribution, left_limit, right_limit):
     """Calculates the area under the curve for the normal distribution function my performing the Riemann summation from the left liimit (given as argument) to the right limit (also given as a function argument)
     """
 
+    # extract the x-data
+    x_data = [x[0] for x in distribution]
+
+    dx = [x_data[n]-x_data[n-1] for n in range(1, len(x_data))]
+
+    avg_dx = np.mean(dx)/len(dx)
+
+    # extract the y-data
+    y_data = [x[1] for x in distribution]
+
+    # only extract the
+    x_data_auc = [x for x in x_data if x >= left_limit and x <= right_limit]
+
+    sum_auc = 0
+    for x in x_data_auc:
+        sum_auc += normal_dist.f_normal(x, mu, sigma)*avg_dx
+
+    return sum_auc
+
 
 # declare the set of constant parameters to be used for simulations
 mu = 0
 sigma = 1.69
-left_limit = -2
-right_limit = 2
+left_limit = -1
+right_limit = 1
 delta = 5  # how much should the normal curve "spread" from the mean
 
 
@@ -149,5 +168,6 @@ if __name__ == '__main__':
 
     Create_Dist_Plot(n_dist, plot_file)
 
+    print(auc(mu, sigma, n_dist, left_limit, right_limit))
     # auc_left(mu, sigma, n_dist, -1)
     # auc_right(mu, sigma, n_dist, -1)
