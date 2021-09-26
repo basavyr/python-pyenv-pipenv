@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import random as rd
 from numpy.lib.function_base import disp
+from datetime import datetime
 
 from scipy.stats import norm
 # for installation of scipy the BLAS package was required (via Homebrew)
@@ -116,16 +117,37 @@ sigma = 1.69
 left_limit = -2
 right_limit = 2
 delta = 5  # how much should the normal curve "spread" from the mean
-test_data = np.linspace(-delta, delta, 100)
-statistic = draw_normal_dist(test_data, mu, sigma)
 
-n_dist = normal_dist(test_data, mu, sigma)
-ndist_x = [x[0] for x in n_dist]
-ndist_y = [x[1] for x in n_dist]
 
-plt.plot(ndist_x, ndist_y, '-or', label='data')
-plt.savefig('normal_plot.pdf', bbox_inches='tight', dpi=300)
-plt.close()
+def Create_Dist_Plot(distribution,  plot_file):
+    # prepare the data from the distribution
+    ndist_x = [x[0] for x in distribution]
+    ndist_y = [x[1] for x in distribution]
 
-auc_left(mu, sigma, n_dist, -1)
-auc_right(mu, sigma, n_dist, -1)
+    fig, ax = plt.subplots()
+
+    plt.plot(ndist_x, ndist_y, '-or', label='data')
+    plt.text(0.20, 0.85, f'{datetime.utcnow()}', horizontalalignment='center',
+             verticalalignment='center', transform=ax.transAxes, fontsize=8)
+    plt.savefig(plot_file, bbox_inches='tight', dpi=300)
+    ax.set_title(f'Title')
+    ax.set_ylabel(f'P(x)')
+    ax.set_xlabel(f'x')
+    plt.close()
+
+
+# the curve that is drawn automatically using the norm module from scipy.stats
+def normal_dist_statistic(
+    test_data): return draw_normal_dist(test_data, mu, sigma)
+
+
+if __name__ == '__main__':
+    # create a test plot with a testing normal distribution
+    plot_file = 'normal_plot.pdf'
+    test_data = np.linspace(-delta, delta, 100)
+    n_dist = normal_dist(test_data, mu, sigma)
+
+    Create_Dist_Plot(n_dist, plot_file)
+
+    # auc_left(mu, sigma, n_dist, -1)
+    # auc_right(mu, sigma, n_dist, -1)
