@@ -12,4 +12,5 @@ print(folders)
 
 for dir in folders:
     content = os.listdir(dir)
-    print(content)
+    pdf_files = [pdf for pdf in content if ".pdf" in pdf]
+    print(pdf_files)
