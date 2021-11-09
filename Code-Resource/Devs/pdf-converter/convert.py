@@ -12,14 +12,14 @@ folders = [x for x in os.listdir(current_path) if os.path.isdir(x)]
 
 for dir in folders:
     content = os.listdir(dir)
-    current_dir_path = os.path.abspath(dir)
-    for file in content:
-        print(os.path.join(str(current_dir_path), str(file)))
+    current_dir_path = os.path.join(
+        os.path.relpath(os.getcwd()), os.path.relpath(dir))
+    print(current_dir_path)
+    pdf_files = [pdf for pdf in content if ".pdf" in pdf]
 
-    # pdf_files = [pdf for pdf in content if ".pdf" in pdf]
-    # for pdf in pdf_files:
-    # print("FilePath:", Path(pdf).parent.absolute())
-    # print(os.path.abspath(pdf))
+    # for pdf_file in pdf_files:
+    #     print(pdf_file)
+    #     print(os.path.join(str(current_dir_path), str(pdf_file)))
 
 
 def Get_PDF_Files(directory):
