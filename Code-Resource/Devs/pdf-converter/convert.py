@@ -35,12 +35,15 @@ for dir in folders:
         str(current_dir_path), str(md_file)) for md_file in md_files]
 
     for path in md_file_paths:
-        path_to_convert = os.path.relpath(os.getcwd())+dir+"/"
+        path_to_convert = os.path.relpath(os.getcwd())+'/'+dir+"/"
         file_name = md_files[id][0:-3]+'.pdf'
-        converted_file = path_to_convert+file_name
-        print(converted_file)
-        # print(path)
+        # print(file_name)
+        converted_file = str(path_to_convert+file_name)
+        # print(converted_file)
+        print(path)
         # subprocess.run(["pandoc", path, f"-o {converted_file}"])
+        subprocess.check_call(
+            ['pandoc', f'{path}', '-s', '-o', f'{converted_file}'])
         id += 1
 
 
