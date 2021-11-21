@@ -10,7 +10,7 @@ class Taylor:
     def c(n, a, x):
         fact = math.factorial(n)
         term = np.power(x - a, n)
-        return fact * term
+        return term
 
 
 test = Taylor()
@@ -23,6 +23,7 @@ plt_y = lambda n, lbl: plt.plot(xdata, coeff_list(n), '-b', label=f'c_n={lbl}')
 
 plt_y(1, 1)
 plt_y(2, 2)
+plt_y(3, 3)
 plt.legend(loc='best')
 plt.show()
 plt.close()
