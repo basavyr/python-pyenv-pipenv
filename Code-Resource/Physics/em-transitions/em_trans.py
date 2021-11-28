@@ -44,3 +44,11 @@ E0 = 2.5
 t_sup = 2
 
 T_VALUES = Create_T(t_sup)
+PSI_RT = Nucleus_Wave_Function(psi_r, E0, t_sup)
+
+plt.plot(T_VALUES, PSI_RT, '-ob', label='Nuclear Wave-Function')
+plt.legend(loc='best')
+plt.xlabel('t [s]')
+plt.ylabel(r'$\Psi(r,t)$')
+plt.savefig('Nuclear_Wave_Function.png', bbox_inches='tight')
+plt.close()
