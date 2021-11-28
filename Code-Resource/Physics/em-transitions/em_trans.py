@@ -14,6 +14,11 @@ def homega(omega_0):
     return energy
 
 
+def Create_T(t_sup):
+    step = 0.1
+    return np.arange(0, t_sup, step)
+
+
 def Nucleus_Wave_Function(psi_r, E0, t_sup):
     """
     Evaluates the nuclear wave-function based on the initial energy of the state.
@@ -21,7 +26,7 @@ def Nucleus_Wave_Function(psi_r, E0, t_sup):
     """
 
     # initialize the t-values
-    t_values = np.arange(0, t_sup, 0.1)
+    t_values = Create_T(t_sup)
 
     exp_t = lambda t: np.exp(-II * E0 * t / HBAR)
 
@@ -29,7 +34,13 @@ def Nucleus_Wave_Function(psi_r, E0, t_sup):
 
     psi_t = list(map(exp_t, t_values))
 
-    return psi_t
+    PSI_RT = [psi_r * psi_t[i] for i in range(len(psi_t))]
+
+    return PSI_RT
 
 
-print(Nucleus_Wave_Function(1, 1.25, 1))
+psi_r = 1.12
+E0 = 2.5
+t_sup = 2
+
+T_VALUES = Create_T(t_sup)
