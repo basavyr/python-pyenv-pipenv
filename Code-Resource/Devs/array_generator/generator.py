@@ -29,20 +29,29 @@ def generateArray(size, seed, type):
     return ret_arr
 
 
-# fixed seed for the array generator
-my_seed = 5
+def plotter_2y(xdata, ydata1, ydata2, labels):
+    plot_file = 'random_data.pdf'
+
+    plt.plot(xdata, ydata1, '-b', label=labels[0])
+    plt.plot(xdata, ydata2, '-r', label=labels[1])
+
+    plt.xlabel('x')
+    plt.ylabel('arr')
+    plt.legend(loc='best')
+    plt.savefig(plot_file, dpi=300, bbox_inches='tight')
+    plt.tight_layout()
+    plt.close()
 
 
-x = [i for i in range(101)]
-y_randrange = generateArray(len(x), my_seed, 'rand')
-y_uniform = generateArray(len(x), my_seed, 'uniform')
+def main():
+    # fixed seed for the array generator
+    my_seed = 5
+    # generate the data for graphical representation
+    x = [i for i in range(101)]
+    y_randrange = generateArray(len(x), my_seed, 'rand')
+    y_uniform = generateArray(len(x), my_seed, 'uniform')
+    labels = ['rand_data', 'uniform']
 
 
-plt.plot(x, y_randrange, '-b', label='rand_data')
-plt.plot(x, y_uniform, '-r', label='uniform')
-plt.xlabel('x')
-plt.ylabel('arr')
-plt.legend(loc='best')
-plt.savefig('random_data.pdf', dpi=300, bbox_inches='tight')
-plt.tight_layout()
-plt.close()
+if __name__ == '__main__':
+    main()
