@@ -13,11 +13,22 @@ async def showprints():
         await timedPrint(name)
 
 
+async def computesum(n):
+    summ = 0
+    for i in range(n):
+        print(f'adding {i} to the summation')
+        time.sleep(1)
+        summ = summ + i
+    return summ
+
+
 async def main():
     task = asyncio.create_task(showprints())
-    print(1)
+    task2 = asyncio.create_task(computesum(5))
     task_value = await task
-
+    task2_value = await task2
+    print(task)
+    print(task2_value)
 
 if __name__ == '__main__':
     asyncio.run(main())
