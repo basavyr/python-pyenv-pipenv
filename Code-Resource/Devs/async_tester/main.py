@@ -2,6 +2,7 @@ import time
 import asyncio
 from timeit import default_timer
 
+
 async def timedPrint(name):
     await asyncio.sleep(2)
     print(f'Hi {name}')
@@ -33,17 +34,18 @@ async def main():
 
 
 async def parallelsum():
+    # https://stackoverflow.com/questions/47169474/parallel-asynchronous-io-in-pythons-coroutines
     results = await asyncio.gather(computesum(3), computesum(2),)
     print(results)
 
 if __name__ == '__main__':
     # asyncio.run(main())
-    start=default_timer()
+    start = default_timer()
     loop = asyncio.get_event_loop()
     try:
         loop.run_until_complete(parallelsum())
         loop.run_until_complete(loop.shutdown_asyncgens())
     finally:
         loop.close()
-    stop=default_timer()
-    print(stop-start)
+    stop = default_timer()
+    print(stop - start)
