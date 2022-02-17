@@ -13,13 +13,21 @@ class Reader:
         """
         - read data from a file synchronously
         """
-        with open(self.dataFile, 'r+') as reader:
-            data = reader.readlines()
-            data_size = len(data)
+
+        data_size = 0
+
+        try:
+            with open(self.dataFile, 'r+') as reader:
+                data = reader.readlines()
+                data_size = len(data)
+        except FileNotFoundError as err:
+            print(f'Cannot read the file since it does not exist -> {err}')
+        else:
+            pass
 
         try:
             assert data_size > 0
         except AssertionError as err:
-            print(f'The file is empty or corrupt -> size={data_size}')
+            print(f'The file is empty or corrupt -> size = {data_size}')
         else:
             return data_size
