@@ -31,3 +31,9 @@ class Reader:
             print(f'The file is empty or corrupt -> size = {data_size}')
         else:
             return data_size
+
+    async def read_file_async(self):
+        """
+        - read data from a file asynchronously
+        """
+        # await self.read_file()  # cannot await a function that is not async
