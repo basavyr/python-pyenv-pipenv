@@ -39,6 +39,9 @@ class Reader:
         # await self.read_file()  # cannot await a function that is not async
         data_size = 0
 
+        # add a safety sleep befure checking the file
+        # await asyncio.sleep(5)
+
         try:
             with open(self.dataFile, 'r+') as reader:
                 data = reader.readlines()
@@ -53,4 +56,10 @@ class Reader:
         except AssertionError as err:
             print(f'The data file is empty or corrupt -> size = {data_size}')
         else:
+            print(f'Finished reading data from the file -> size = {data_size}')
             return data_size
+
+    async def repeated_reader(self, time):
+        for _ in range(time):
+            await self.read_file_async()
+            await asyncio.sleep(1)
