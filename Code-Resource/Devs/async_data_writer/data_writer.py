@@ -28,3 +28,21 @@ class Writer:
                 idx = idx + 1
                 if(verbose == 1):
                     print('Finished writing a data element to the file...')
+
+    async def write_to_file_async(self, data, verbose):
+        """
+        - write data to a file asynchronously
+        """
+        idx = 0
+        with open(self.dataFile, 'w+') as writer:
+            for data_element in data:
+                if(verbose == 1):
+                    print(f'############# Iteration {idx+1} #############')
+                if(verbose == 1):
+                    print('Writing a data element into the file...')
+                writer.write(self.stringify(data_element))
+                writer.write('\n')
+                idx = idx + 1
+                await asyncio.sleep(1)
+                if(verbose == 1):
+                    print('Finished writing a data element to the file')

@@ -13,7 +13,7 @@ def main():
     reader = data_reader.Reader(FILENAME)
 
     # ----------------------
-    writer.write_to_file(MY_DATA, 1)
+    data_reader.asyncio.run(writer.write_to_file_async(MY_DATA, 1))
 
     # ----------------------
     data_size = reader.read_file()
