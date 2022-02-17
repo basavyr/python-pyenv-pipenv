@@ -30,12 +30,11 @@ async def main():
     reader = data_reader.Reader(FILENAME)
 
     # # ----------------------
-    await writer.write_to_file_async(MY_DATA, 1)
+    res1 = await writer.write_to_file_async(MY_DATA, 1)
 
     # # ----------------------
-    await reader.read_file_async()
-    
-
+    res2 = await reader.read_file_async()
+    print(res2)
 
 if __name__ == '__main__':
     data_reader.asyncio.run(main())
