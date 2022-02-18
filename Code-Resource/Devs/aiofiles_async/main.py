@@ -16,8 +16,8 @@ async def main():
     # await writer.WriteData(local_data)
 
     H = await asyncio.gather(
-        writer.BatchWrite(3),
-        reader.BatchRead(3),
+        writer.BatchWrite(5),
+        reader.BatchRead(5),
     )
 
 

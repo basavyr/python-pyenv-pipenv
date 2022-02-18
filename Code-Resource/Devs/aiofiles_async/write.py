@@ -16,6 +16,7 @@ class Write:
             await asyncio.sleep(1)
             return
         async with aiofiles.open(self.fileName, 'w+') as f:
+            # https://www.twilio.com/blog/working-with-files-asynchronously-in-python-using-aiofiles-and-asyncio
             for data_element in data:
                 await f.write(self.stringify(data_element))
                 await f.write('\n')

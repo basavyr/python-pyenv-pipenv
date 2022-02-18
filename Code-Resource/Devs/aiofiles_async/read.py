@@ -8,6 +8,7 @@ class Read:
 
     async def ReadData(self):
         async with aiofiles.open(self.fileName, 'r') as f:
+            # https://www.twilio.com/blog/working-with-files-asynchronously-in-python-using-aiofiles-and-asyncio
             content = await f.readlines()
 
         size = len(content)
