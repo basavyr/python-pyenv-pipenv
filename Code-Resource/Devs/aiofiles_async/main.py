@@ -11,12 +11,14 @@ async def main():
     writer = write.Write(filename=filename)
     reader = read.Read(filename=filename)
 
-    local_data = data.Data.GenerateData()
+    local_data = lambda: data.Data.GenerateData()
 
-    await writer.WriteData(local_data)
+    # await writer.WriteData(local_data)
 
-    data_size = await reader.ReadData()
-    print(data_size)
+    H = await asyncio.gather(
+        writer.BatchWrite(3),
+        reader.BatchRead(3),
+    )
 
 
 if __name__ == '__main__':

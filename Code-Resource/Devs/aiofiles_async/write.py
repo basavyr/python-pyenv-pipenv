@@ -1,5 +1,6 @@
 import asyncio
 import aiofiles
+import data
 
 
 class Write:
@@ -18,3 +19,13 @@ class Write:
             for data_element in data:
                 await f.write(self.stringify(data_element))
                 await f.write('\n')
+
+    async def BatchWrite(self, no_batches):
+        for idx in range(no_batches):
+            print(f'Writing data element to the file...')
+
+            await self.WriteData(data.Data.GenerateData())
+            await asyncio.sleep(1)
+
+            print(f'Finished writing data element to the file...')
+            print(f'*********')
