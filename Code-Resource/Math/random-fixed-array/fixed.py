@@ -26,12 +26,17 @@ def generate_fixed_array(arr_size):
     while(checker):
         rng = get_random_number()
         if(total_sum + _MIN_NUMBER > 100):
-            print(f'will stop the rng with sum {total_sum}')
+            print(f'❌ will stop the rng with sum {total_sum}')
             checker = False
         elif(total_sum + rng < 100):
             print(f'✅ found good number {rng} with current sum to {total_sum}')
             total_sum = total_sum + rng
             random_array.append(rng)
+        elif(total_sum + rng == 100):
+            print(f'🔥 will stop the rng with sum {total_sum}')
+            total_sum = total_sum + rng
+            random_array.append(rng)
+            checker = False
     # ****************************
     end = default_timer()
     # ****************************
