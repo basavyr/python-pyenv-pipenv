@@ -6,6 +6,7 @@ import random
 
 _MIN_NUMBER = 5
 _MAX_NUMBER = 35
+SUMM = 555
 
 
 def get_random_number():
@@ -25,14 +26,18 @@ def generate_fixed_array(arr_size):
     # ****************************
     while(checker):
         rng = get_random_number()
-        if(total_sum + _MIN_NUMBER > 100):
-            print(f'❌ will stop the rng with sum {total_sum}')
+        if(total_sum + _MIN_NUMBER > SUMM):
+            """stop the loop if the summation reaches a point where the smallest possible rng will overflow it"""
+            remainder = SUMM - total_sum
+            random_array.append(remainder)
+            print(f'❌ will stop the rng with remainder {remainder}')
             checker = False
-        elif(total_sum + rng < 100):
+        elif(total_sum + rng < SUMM):
+            """add rng to the array if the summation is smaller than the cap value of 100"""
             print(f'✅ found good number {rng} with current sum to {total_sum}')
             total_sum = total_sum + rng
             random_array.append(rng)
-        elif(total_sum + rng == 100):
+        elif(total_sum + rng == SUMM):
             print(f'🔥 will stop the rng with sum {total_sum}')
             total_sum = total_sum + rng
             random_array.append(rng)
@@ -42,11 +47,11 @@ def generate_fixed_array(arr_size):
     # ****************************
 
     proc_time = float(end - start)
-    return random_array, proc_time
+    return random_array, sum(random_array), total_sum
 
 
 def main():
-    w = generate_fixed_array(5)[0]
+    w = generate_fixed_array(5)
     print(w)
 
 
