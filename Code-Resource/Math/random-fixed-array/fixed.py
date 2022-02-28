@@ -85,24 +85,31 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
         if(array_sum + rng <= total_sum):
             array.append(rng)
             if(debug_mode):
-                print(f'Added rng={rng} to the array -> {array}')
+                print(f'Added rng={rng} to the array -> A={array}')
             arr_size = len(array)
-            array_sum = array_sum + rng
+            array_sum = sum(array)
+
             """ the second condition for adding numbers in the array"""
             if(arr_size == total_size):
                 """ stop the loop since the array reached maximum capacity """
+
                 if(debug_mode):
-                    print(f'Array is full -> {arr_size}')
-                    print(f'Array {array} has the sum-> {array_sum}')
+                    print(f'Array A is full -> L(A)={arr_size}')
+                    print(f'Array A={array} has the sum-> S(A)={array_sum}')
+
                 if(array_sum <= total_sum):
-                    if(debug_mode):
-                        print(
-                            f'removing the last element from the array -> {rng}')
+                    """check if the full array has the sum <= total_sum """
+
+                    # if(debug_mode):
+                    #     print(
+                    #         f'removing the last element from the array -> {rng}')
                     array.pop()
                     final_term = total_sum - sum(array)
                     if(debug_mode):
+                        # print(
+                        #     f'creating a final term to fill the array -> {final_term}')
                         print(
-                            f'creating a final term to fill the array -> {final_term}')
+                            f'replacing {rng} from the array with {final_term} to keep sum = {sum(array) + final_term}')
                     array.append(final_term)
                     array_sum = sum(array)
                 checker = False
@@ -133,7 +140,7 @@ def main():
         print(f'running iteration -> {_+1}')
         print(f'**************************')
         w = generate_array_fixed_number(
-            debug_mode=1, total_size=10, total_sum=100)
+            debug_mode=1, total_size=3, total_sum=100)
         print(w)
 
 
