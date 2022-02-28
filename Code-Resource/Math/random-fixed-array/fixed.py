@@ -5,6 +5,8 @@ import random
 
 import sys
 
+import pie_plotter as pie
+
 _MIN_NUMBER = 5
 _MAX_NUMBER = 35
 _SUMM = 100
@@ -151,7 +153,7 @@ def main():
         print(f'**************************')
         fixed_array = generate_array_fixed_number(
             debug_mode=_debug_mode, total_size=3, total_sum=100)[0]
-            
+        pie.pie_chart(fixed_array, f'pie-chart-{_+1}')
         print(fixed_array)
 
 
