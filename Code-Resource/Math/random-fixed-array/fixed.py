@@ -3,6 +3,7 @@ from timeit import default_timer
 import time
 import random
 
+import sys
 
 _MIN_NUMBER = 5
 _MAX_NUMBER = 35
@@ -106,7 +107,7 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
             safety_rng = total_sum - array_sum
             print(
                 f'cannot add {rng} to the array since it exceeds the limit...')
-            print(f'will add {safety_rng} instread')
+            print(f'will add {safety_rng} instead')
             array.append(safety_rng)
             array_sum = array_sum + safety_rng
             checker = False
@@ -114,8 +115,16 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
 
 
 def main():
-    w = generate_array_fixed_number(debug_mode=1, total_size=4, total_sum=100)
-    print(w)
+    try:
+        number_of_iterations = int(sys.argv[1])
+    except IndexError as err:
+        number_of_iterations = int(1)
+    print(f'Number of total iterations: {number_of_iterations}')
+    for _ in range(number_of_iterations):
+        print(f'running iteration -> {_+1}')
+        w = generate_array_fixed_number(
+            debug_mode=1, total_size=8, total_sum=100)
+        print(w)
 
 
 if __name__ == '__main__':
