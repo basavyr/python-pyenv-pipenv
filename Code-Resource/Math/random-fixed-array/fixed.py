@@ -73,6 +73,9 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
     """ keep count of all the iterations within the while loop """
     counter = 0
 
+    if(debug_mode):
+        print(f'loop started')
+
     while checker:
         rng = get_random_number()
         """ 
@@ -80,9 +83,9 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
         - the sum of all elements within the array should not exceed total sum
         """
         if(array_sum + rng <= total_sum):
-            if(debug_mode):
-                print(f'Will add {rng} to the array -> {array}')
             array.append(rng)
+            if(debug_mode):
+                print(f'Added rng={rng} to the array -> {array}')
             arr_size = len(array)
             array_sum = array_sum + rng
             """ the second condition for adding numbers in the array"""
@@ -105,12 +108,17 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
                 checker = False
         else:
             safety_rng = total_sum - array_sum
-            print(
-                f'cannot add {rng} to the array since it exceeds the limit...')
-            print(f'will add {safety_rng} instead')
+            if(debug_mode):
+                print(
+                    f'cannot add {rng} to the array since it exceeds the limit...')
+                print(f'will add {safety_rng} instead')
             array.append(safety_rng)
-            array_sum = array_sum + safety_rng
+            array_sum = sum(array)
             checker = False
+
+    if(debug_mode):
+        print(f'loop ended')
+
     return array, array_sum
 
 
@@ -119,11 +127,13 @@ def main():
         number_of_iterations = int(sys.argv[1])
     except IndexError as err:
         number_of_iterations = int(1)
-    print(f'Number of total iterations: {number_of_iterations}')
+    print(f'Number of iterations: {number_of_iterations}')
     for _ in range(number_of_iterations):
+        print(f'**************************')
         print(f'running iteration -> {_+1}')
+        print(f'**************************')
         w = generate_array_fixed_number(
-            debug_mode=1, total_size=8, total_sum=100)
+            debug_mode=1, total_size=10, total_sum=100)
         print(w)
 
 
