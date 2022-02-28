@@ -131,17 +131,28 @@ def generate_array_fixed_number(debug_mode, total_size, total_sum):
 
 def main():
     try:
-        number_of_iterations = int(sys.argv[1])
+        _number_of_iterations = int(sys.argv[1])
     except IndexError as err:
-        number_of_iterations = int(1)
-    print(f'Number of iterations: {number_of_iterations}')
-    for _ in range(number_of_iterations):
+        print(f'Iterations -> {err}')
+        _number_of_iterations = 1
+
+    try:
+        _debug_mode = int(sys.argv[2])
+    except IndexError as err:
+        print(f'Debug mode -> {err}')
+        _debug_mode = False
+
+    print(f'Number of iterations: {_number_of_iterations}')
+    print(f'Debug mode: {_debug_mode}')
+
+    for _ in range(_number_of_iterations):
         print(f'**************************')
         print(f'running iteration -> {_+1}')
         print(f'**************************')
-        w = generate_array_fixed_number(
-            debug_mode=1, total_size=3, total_sum=100)
-        print(w)
+        fixed_array = generate_array_fixed_number(
+            debug_mode=_debug_mode, total_size=3, total_sum=100)[0]
+            
+        print(fixed_array)
 
 
 if __name__ == '__main__':
