@@ -53,34 +53,68 @@ def generate_array_fixed_sum(array_sum):
     return random_array, sum(random_array), total_sum
 
 
-def generate_array_fixed_number(arr_size, arr_sum):
+def generate_array_fixed_number(debug_mode, total_size, total_sum):
     """
     - generate a random array with a fixed number of elements
     - the random array needs to sum up to a fixed sum
     """
-    total_sum = 0
     checker = True
-    id_counter = 0
-    rng_array = []
+
+    """ array to store all the generated random numbers """
+    array = []
+
+    """ sum of the elements within the array """
+    array_sum = 0
+
+    """ size of the array """
+    array_size = 0
+
+    """ keep count of all the iterations within the while loop """
+    counter = 0
 
     while checker:
         rng = get_random_number()
-        id_counter = id_counter + 1
-        if(total_sum + rng <= arr_sum):
-            if(len(rng_array) + 1 <= arr_size):
-                print(f'will add {rng} to the array {rng_array}')
-                rng_array.append(rng)
-                total_sum = total_sum + rng
-            else:
+        """ 
+        - first condition for adding numbers in the array
+        - the sum of all elements within the array should not exceed total sum
+        """
+        if(array_sum + rng <= total_sum):
+            if(debug_mode):
+                print(f'Will add {rng} to the array -> {array}')
+            array.append(rng)
+            arr_size = len(array)
+            array_sum = array_sum + rng
+            """ the second condition for adding numbers in the array"""
+            if(arr_size == total_size):
+                """ stop the loop since the array reached maximum capacity """
+                if(debug_mode):
+                    print(f'Array is full -> {arr_size}')
+                    print(f'Array {array} has the sum-> {array_sum}')
+                if(array_sum <= total_sum):
+                    if(debug_mode):
+                        print(
+                            f'removing the last element from the array -> {rng}')
+                    array.pop()
+                    final_term = total_sum - sum(array)
+                    if(debug_mode):
+                        print(
+                            f'creating a final term to fill the array -> {final_term}')
+                    array.append(final_term)
+                    array_sum = sum(array)
                 checker = False
         else:
+            safety_rng = total_sum - array_sum
+            print(
+                f'cannot add {rng} to the array since it exceeds the limit...')
+            print(f'will add {safety_rng} instread')
+            array.append(safety_rng)
+            array_sum = array_sum + safety_rng
             checker = False
-
-    return rng_array, total_sum
+    return array, array_sum
 
 
 def main():
-    w = generate_array_fixed_number(4, 100)
+    w = generate_array_fixed_number(debug_mode=1, total_size=4, total_sum=100)
     print(w)
 
 
