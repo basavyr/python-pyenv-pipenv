@@ -152,7 +152,7 @@ def main():
         print(f'running iteration -> {_+1}')
         print(f'**************************')
         fixed_array = generate_array_fixed_number(
-            debug_mode=_debug_mode, total_size=3, total_sum=100)[0]
+            debug_mode=_debug_mode, total_size=4, total_sum=100)[0]
         pie.pie_chart(fixed_array, f'pie-chart-{_+1}')
         print(fixed_array)
 
