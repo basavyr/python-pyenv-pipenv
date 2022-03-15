@@ -6,6 +6,10 @@ thread = local_thread.threading.Thread()
 stop_event_thread = local_thread.threading.Event()
 
 
+# resources for stopping a python thread
+# https://www.youtube.com/watch?v=A97QLHAqNuw
+
+
 def check_for_event(event):
     if event.is_set() is True:
         return 1
@@ -25,12 +29,16 @@ def generate_number():
 def main():
     print('thread is unset')
     while stop_event_thread.is_set() is False:
-        local_thread.time.sleep(3)
+        local_thread.time.sleep(5)
         rng = generate_number()
         res = 1 if rng % 2 == 0 else 0
         print(f'Generated {rng} -> {res}')
         if(res):
+            print('generated an even number...stopping the thread')
             create_stop_event(stop_event_thread)
+        else:
+            print('generated an odd number...continue with the task')
+            pass
 
         # if(check_for_event(stop_event_thread) == 0):
         #     pass
