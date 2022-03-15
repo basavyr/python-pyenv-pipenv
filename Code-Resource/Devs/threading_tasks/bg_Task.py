@@ -6,22 +6,34 @@ thread = local_thread.threading.Thread()
 stop_event_thread = local_thread.threading.Event()
 
 
-def check_for_event():
-    return 1
+def check_for_event(event):
+    if event.is_set() is True:
+        return 1
+    else:
+        return 0
+
+
+def create_stop_event(event):
+    print('will set the thread')
+    return event.set()
 
 
 def main():
-    value = stop_event_thread.is_set()
     # do some calculations
-    while value is False:
-        print('thread is unset')
+    print('thread is unset')
+    while stop_event_thread.is_set() is False:
         print('...')
         local_thread.time.sleep(3)
-        check_for_event()
-    # try:
-    #     assert value is True, 'The thread is not set!'
-    # except AssertionError as err:
-    #     print(err)
+        # if(check_for_event(stop_event_thread) == 0):
+        #     pass
+        # else:
+        #     create_stop_event(stop_event_thread)
+        create_stop_event(stop_event_thread)
+        # try:
+        #     assert value is True, 'The thread is not set!'
+        # except AssertionError as err:
+        #     print(err)
+        print('finished the task execution')
 
 
 if __name__ == '__main__':
