@@ -25,20 +25,22 @@ def generate_rows(n_rows, n_cols, table_data):
 
 
 def table(headers, n_rows, n_cols, table_data):
-    T = '<table style="" class="" id ="">\n'
+    style = "<style> table, th, td { border:1px solid black; } </style>\n"
+    T = style + '<table style="" class="table-style" id ="">\n'
     H = generate_header(headers)
     R = generate_rows(n_rows, n_cols, table_data)
     T += H
     T += R
     T += '\n</table>\n'
-    print(T)
+    return T
 
 
 def main():
     table_data = lambda n_cols, n_rows: [
         [f'row{row+1}-col{col+1}' for col in range(n_cols)] for row in range(n_rows)]
-    td = table_data(3, 2)
-    table(['h1', 'h2', 'h3'], 3, 3, td)
+    html_table = table(['h1', 'h2', 'h3'], 3, 3, table_data(3, 2))
+    with open('tables.html', 'w+') as writer:
+        writer.write(html_table)
 
 
 if __name__ == '__main__':
