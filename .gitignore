@@ -10,3 +10,5 @@ Code-Resource/Devs/threading_tasks/__pycache__/threads_main.cpython-39.pyc
 *.pid
 
 *.swp
+
+*.pyc
