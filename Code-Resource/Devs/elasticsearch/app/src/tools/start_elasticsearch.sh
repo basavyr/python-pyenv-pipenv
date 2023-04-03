@@ -13,8 +13,8 @@ if [ "$HOST" == $MACOSOS ] || [ "$HOST" == "Darwin" ] || [ "$HOST" == "macOS" ];
   ELK_MODE="cd $ES_HOME && ./bin/elasticsearch -d -p $LOCAL_DIR/elasticsearch.pid > $LOCAL_DIR/elasticsearch.log 2>&1``"
 else
   echo "The current platform is Linux based"
+  ELK_MODE="systemctl status elasticsearch"
 fi
-
 
 if [ -z "$ES_HOME" ] && [ -z "$KIBANA_HOME" ] ; then
   echo "The path to Elasticsearch and Kibana are not available"
