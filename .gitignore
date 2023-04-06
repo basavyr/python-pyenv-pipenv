@@ -12,3 +12,5 @@ Code-Resource/Devs/threading_tasks/__pycache__/threads_main.cpython-39.pyc
 *.swp
 
 *.pyc
+
+Code-Resource/Devs/elasticsearch/app/data/

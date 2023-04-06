@@ -14,3 +14,4 @@ ES_API_KEY = {
 }
 
 CERT_PATH = os.path.join(ES_HOME, 'config/certs', ES_CERT)
+
