@@ -1,6 +1,8 @@
 import os
 
 ES_HOME = ''
+ID = ''
+KEY = ''
 if (os.environ['ES_HOME'] != ""):
     ES_HOME = os.environ['ES_HOME']
     ID = os.environ['ES_API_KEY_ID']
@@ -14,4 +16,3 @@ ES_API_KEY = {
 }
 
 CERT_PATH = os.path.join(ES_HOME, 'config/certs', ES_CERT)
-
