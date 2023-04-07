@@ -4,6 +4,8 @@ from datetime import datetime
 
 from configs import config
 
+from async_module import async_es
+
 
 class MyElasticsearch:
     """
@@ -17,6 +19,12 @@ class MyElasticsearch:
             ca_certs=config.CERT_PATH
         )
         self.es_instance = es
+
+    def check_index_exists(self, index_name: str) -> bool:
+        """
+        - returns True if the index exists on the Elasticsearch cluster
+        """
+        return self.es_instance.indices.exists(index=index_name)
 
 
 def index_test(es: Elasticsearch):
@@ -46,19 +54,21 @@ def main():
     es_instance = MyElasticsearch()
     es = es_instance.es_instance
 
-    data = import_test_mr()
-    index_name = 'test-conmod'
+    print(es.indices.exists(index='debug_index'))
 
-    for idx in range(len(data)):
-        mr = data[idx]
-        try:
-            mr['timestamp'] = datetime.now()
-            resp = es.index(index=index_name, id=idx+1, document=mr)
-            print(resp['result'])
-        except Exception:
-            print('Cannot send the MR to Elasticsearch')
-            print('Check logs at')
-        idx = idx+1
+    data = import_test_mr()
+    es.async_search.get(id='',)
+
+    # for idx in range(len(data)):
+    #     mr = data[idx]
+    #     try:
+    #         mr['timestamp'] = datetime.now()
+    #         resp = es.index(index=index_name, id=idx+1, document=mr)
+    #         print(resp['result'])
+    #     except Exception:
+    #         print('Cannot send the MR to Elasticsearch')
+    #         print('Check logs at')
+    #     idx = idx+1
 
 
 if __name__ == '__main__':
