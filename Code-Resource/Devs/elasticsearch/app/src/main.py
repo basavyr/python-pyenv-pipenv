@@ -1,10 +1,11 @@
 from elasticsearch import Elasticsearch
+import asyncio
+
 import json
 from datetime import datetime
 
-from configs import config
-
 from async_module import async_es
+from configs import config
 
 
 class MyElasticsearch:
@@ -50,26 +51,20 @@ def import_test_mr():
     return mr_data
 
 
-def main():
-    es_instance = MyElasticsearch()
-    es = es_instance.es_instance
+async def main_async():
+    # create an async client
+    async_es_client = async_es.create_async_es_client()
 
-    print(es.indices.exists(index='debug_index'))
+    # run testing async functions
+    await async_es.print_info(async_es_client)
+    # await async_es.get_es_indices(async_es_client)
+    await async_es.get_fixed_docs(async_es_client, 20)
 
-    data = import_test_mr()
-    es.async_search.get(id='',)
-
-    # for idx in range(len(data)):
-    #     mr = data[idx]
-    #     try:
-    #         mr['timestamp'] = datetime.now()
-    #         resp = es.index(index=index_name, id=idx+1, document=mr)
-    #         print(resp['result'])
-    #     except Exception:
-    #         print('Cannot send the MR to Elasticsearch')
-    #         print('Check logs at')
-    #     idx = idx+1
+    # close the async client connection
+    await async_es_client.transport.close()
 
 
 if __name__ == '__main__':
-    main()
+    loop = asyncio.new_event_loop()  # use new keyword to create the event loop
+    loop.run_until_complete(main_async())
+    loop.close()
