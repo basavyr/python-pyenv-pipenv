@@ -57,8 +57,9 @@ async def main_async():
 
     # run testing async functions
     await async_es.print_info(async_es_client)
+    await async_es.index_document(async_es_client)
     # await async_es.get_es_indices(async_es_client)
-    await async_es.get_fixed_docs(async_es_client, 20)
+    # await async_es.get_fixed_docs(async_es_client, 20)
 
     # close the async client connection
     await async_es_client.transport.close()

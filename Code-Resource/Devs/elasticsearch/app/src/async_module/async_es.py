@@ -1,4 +1,5 @@
 import json
+import uuid
 
 import asyncio
 from elasticsearch import Elasticsearch, AsyncElasticsearch
@@ -18,7 +19,6 @@ def create_async_es_client() -> AsyncElasticsearch:
 
 
 async def get_all_docs(es_client: AsyncElasticsearch, es_index: str) -> dict:
-
     response = await es_client.async_search(
         index=es_index,
         body={
@@ -41,6 +41,22 @@ async def get_fixed_docs(es_client, n_docs):
         },
         size=n_docs,
     )
+    print(resp)
+
+
+async def index_document(es_client):
+    """
+    - update or create a document on the Elasticsearch index
+    """
+    def doc(): return {
+        "extra-info": 367218,
+        "my-field": 356218,
+        'unique-identified': 'yes',
+        'unique-hash': str(uuid.uuid4()),
+    }
+    docs = [doc() for _ in range(20)]
+    test_index = "debug_index"
+    resp = await es_client.index(index=test_index, body=doc())
     print(resp)
 
 
